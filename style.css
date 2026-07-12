@@ -1,0 +1,783 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    background:#f4f7fb;
+    color:#222;
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+
+    background:linear-gradient(135deg,#123456,#1f5f99);
+
+    color:#fff;
+
+    padding:30px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.18);
+
+}
+
+.header-grid{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr;
+
+    gap:35px;
+
+    align-items:center;
+
+}
+
+.header-title{
+
+    text-align:center;
+
+}
+
+.header-title h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    font-size:18px;
+
+    color:#d9e7f8;
+
+    margin-bottom:8px;
+
+}
+
+.powered{
+
+    font-size:14px;
+
+    color:#c6d7ea;
+
+}
+
+.powered strong{
+
+    color:#fff;
+
+}
+
+
+/* =====================================================
+   HEADER MENU
+===================================================== */
+
+.top-menu{
+
+    display:grid;
+
+    gap:10px;
+
+}
+
+.menu-btn{
+
+    background:rgba(255,255,255,.08);
+
+    border:none;
+
+    color:#fff;
+
+    text-align:left;
+
+    padding:10px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:15px;
+
+}
+
+.menu-btn:hover{
+
+    background:#fff;
+
+    color:#123456;
+
+}
+
+.menu-btn.active{
+
+    background:#fff;
+
+    color:#123456;
+
+    font-weight:bold;
+
+}
+
+
+/* =====================================================
+   KPI
+===================================================== */
+
+.cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin:30px;
+
+}
+
+.card{
+
+    width:260px;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.card h3{
+
+    color:#666;
+
+    margin-bottom:12px;
+
+}
+
+.card h2{
+
+    font-size:42px;
+
+    color:#123456;
+
+}
+
+
+/* =====================================================
+   CHARTS
+===================================================== */
+
+.charts{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px;
+
+    margin:30px;
+
+}
+
+.chart-card{
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.chart-card h3{
+
+    margin-bottom:20px;
+
+    color:#123456;
+
+}
+
+.chart-card canvas{
+
+    width:100% !important;
+
+    height:420px !important;
+
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+.filter{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin:30px;
+
+}
+
+.filter input,
+.filter select{
+
+    width:260px;
+
+    padding:12px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+.filter button{
+
+    background:#123456;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.filter button:hover{
+
+    background:#0f2f52;
+
+}/* =====================================================
+   TABLE
+===================================================== */
+
+.table-container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    margin:30px auto;
+
+    padding:0 20px;
+
+}
+/* ==========================================
+   MOBILE VIEW
+========================================== */
+
+#mobileCards{
+
+    display:none;
+
+}
+
+@media(max-width:768px){
+
+    .table-container{
+
+        display:none;
+
+    }
+
+    #mobileCards{
+
+        display:block;
+
+        padding:15px;
+
+    }
+
+}
+table{
+
+    width:100%;
+
+    min-width:1250px;
+
+    border-collapse:collapse;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+thead{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
+}
+
+th{
+
+    background:#123456;
+
+    color:#fff;
+
+    padding:14px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    transition:.2s;
+
+}
+
+th:hover{
+
+    background:#1f5f99;
+
+}
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+tbody tr:nth-child(even){
+
+    background:#fafafa;
+
+}
+
+tbody tr:hover{
+
+    background:#edf5ff;
+
+}
+
+
+/* =====================================================
+   COLUMN WIDTH
+===================================================== */
+
+th:first-child,
+td:first-child{
+
+    width:55px;
+
+}
+
+th:nth-child(2),
+td:nth-child(2){
+
+    min-width:180px;
+
+}
+
+th:nth-child(3),
+td:nth-child(3){
+
+    min-width:170px;
+
+}
+
+th:nth-child(4),
+td:nth-child(4){
+
+    min-width:140px;
+
+}
+
+th:nth-child(5),
+td:nth-child(5){
+
+    min-width:90px;
+
+}
+
+th:nth-child(6),
+td:nth-child(6){
+
+    min-width:70px;
+
+}
+
+th:nth-child(7),
+td:nth-child(7){
+
+    min-width:90px;
+
+}
+
+th:nth-child(8),
+td:nth-child(8){
+
+    min-width:350px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+th:nth-child(9),
+td:nth-child(9){
+
+    min-width:120px;
+
+}
+
+th:nth-child(10),
+td:nth-child(10){
+
+    min-width:130px;
+
+}
+
+
+/* =====================================================
+   SIDE PANEL
+===================================================== */
+
+.side-panel{
+
+    position:fixed;
+
+    top:0;
+
+    right:-500px;
+
+    width:480px;
+
+    height:100vh;
+
+    background:#fff;
+
+    box-shadow:-6px 0 20px rgba(0,0,0,.18);
+
+    transition:.3s;
+
+    z-index:9999;
+
+    overflow:auto;
+
+}
+
+.side-panel.open{
+
+    right:0;
+
+}
+
+.panel-header{
+
+    background:#123456;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+.close-panel{
+
+    cursor:pointer;
+
+    font-size:28px;
+
+}
+
+#panelContent{
+
+    padding:20px;
+
+}
+
+#panelContent table{
+
+    width:100%;
+
+    min-width:100%;
+
+}
+
+
+/* =====================================================
+   INVOICE BOX
+===================================================== */
+
+.invoice-box{
+
+    background:#f8f9fb;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    margin-bottom:12px;
+
+    padding:14px;
+
+    transition:.25s;
+
+}
+
+.invoice-box:hover{
+
+    background:#123456;
+
+    color:#fff;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#b8c3d1;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#8fa0b8;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+.header-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.top-menu{
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+.menu-btn{
+
+text-align:center;
+
+}
+
+.charts{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header-title h1{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:15px;
+
+}
+
+.cards{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.filter{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.filter input,
+.filter select,
+.filter button{
+
+width:95%;
+
+}
+
+.side-panel{
+
+width:100%;
+
+}
+
+}/* ==========================================
+   MOBILE CARDS
+========================================== */
+
+.shipment-card{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.shipment-card h3{
+
+    color:#123456;
+
+    margin-bottom:15px;
+
+    font-size:18px;
+
+}
+
+.shipment-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:8px 0;
+
+    font-size:15px;
+
+}
+
+.shipment-label{
+
+    color:#666;
+
+    font-weight:600;
+
+}
+
+.shipment-value{
+
+    font-weight:bold;
+
+}
+
+.details-btn{
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border:none;
+
+    background:#123456;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.details-btn:hover{
+
+    background:#1b75d0;
+
+}
