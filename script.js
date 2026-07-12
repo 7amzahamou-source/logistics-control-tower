@@ -184,10 +184,8 @@ function fillTable(data){
 
 function fillMobileCards(data){
 
-    const container =
-
-    document.getElementById("mobileCards");
-
+   const container =
+document.getElementById("mobileCardsList");
     if(!container) return;
 
     container.innerHTML="";
@@ -404,16 +402,17 @@ function loadFilters(){
 
 function applyFilters(){
 
-    const search =
+   const desktopSearch =
+document.getElementById("search");
 
-    document
+const mobileSearch =
+document.getElementById("mobileSearch");
 
-    .getElementById("search")
-
-    .value
-
-    .toLowerCase();
-
+const search = (
+    desktopSearch?.value ||
+    mobileSearch?.value ||
+    ""
+).toLowerCase();
     const factory =
 
     document
