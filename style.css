@@ -1182,8 +1182,12 @@ th{
 .po-table{
 
     width:100%;
-    min-width:700px;
+
     border-collapse:collapse;
+
+    table-layout:fixed;
+
+    background:#fff;
 
 }
 
@@ -1201,6 +1205,12 @@ th{
     padding:12px;
     text-align:center;
     border-bottom:1px solid #ececec;
+
+    color:#222;
+
+    font-weight:500;
+
+    background:#fff;
 
 }
 
@@ -1297,5 +1307,43 @@ th{
 .po-toggle:hover{
 
     background:#1f5f99;
+
+}.purchase-card{
+
+    overflow:visible;
+
+}
+
+#purchaseCards{
+
+    overflow:visible;
+
+}
+
+.po-table{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.po-table tbody tr{
+
+    background:#fff !important;
+
+}
+
+.po-table tbody tr td{
+
+    color:#222 !important;
+
+    background:#fff !important;
+
+}
+
+.po-table tbody tr:hover td{
+
+    background:#edf5ff !important;
 
 }
