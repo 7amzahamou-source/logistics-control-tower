@@ -1143,10 +1143,17 @@ th{
 
 .progress-text{
 
-    text-align:right;
-    font-weight:bold;
-    color:#123456;
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
     margin-bottom:20px;
+
+    color:#123456;
+
+    font-weight:600;
 
 }
 
@@ -1345,5 +1352,43 @@ th{
 .po-table tbody tr:hover td{
 
     background:#edf5ff !important;
+
+}/* ===== Purchase Header ===== */
+
+.purchase-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:15px;
+
+}
+
+.purchase-info h2{
+
+    margin:0;
+
+    color:#123456;
+
+}
+
+.purchase-info p{
+
+    margin-top:8px;
+
+    color:#666;
+
+}
+
+.purchase-percent{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#123456;
 
 }
