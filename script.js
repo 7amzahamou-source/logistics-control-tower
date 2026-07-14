@@ -1548,3 +1548,33 @@ function togglePO(id){
         : "none";
 
 }
+// ======================================================
+// FILTER PURCHASE ORDERS
+// ======================================================
+
+function filterPurchaseOrders(){
+
+    const keyword = document
+        .getElementById("poSearch")
+        .value
+        .toLowerCase();
+
+    const cards = document.querySelectorAll(".purchase-card");
+
+    cards.forEach(card=>{
+
+        const text = card.innerText.toLowerCase();
+
+        if(text.includes(keyword)){
+
+            card.style.display = "block";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
