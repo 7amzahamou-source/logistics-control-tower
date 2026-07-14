@@ -1577,19 +1577,19 @@ function filterPurchaseOrders(){
 
         return (
 
-            (row["OrderID / PI NO"] || "")
+            String(row["OrderID / PI NO"] || "")
                 .toLowerCase()
                 .includes(keyword)
 
             ||
 
-            (row["Supplier"] || "")
+            String(row["Supplier"] || "")
                 .toLowerCase()
                 .includes(keyword)
 
             ||
 
-            (row["MODELS"] || "")
+            String(row["MODELS"] || "")
                 .toLowerCase()
                 .includes(keyword)
 
