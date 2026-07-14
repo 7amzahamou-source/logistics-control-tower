@@ -1557,49 +1557,65 @@ function togglePO(id){
 // FILTER PURCHASE ORDERS
 // ======================================================
 
-// ======================================================
-// FILTER PURCHASE ORDERS
-// ======================================================
-
 function filterPurchaseOrders(){
 
-    console.log("Search Fired");
-
-    const keyword = document
-        .getElementById("poSearch")
+    const keyword =
+        document.getElementById("poSearch")
         .value
         .trim()
         .toLowerCase();
 
-    console.log(keyword);
-
-    console.log("Total PO:", purchaseOrders.length);
+    const status =
+        document.getElementById("statusFilter")
+        .value
+        .toLowerCase();
 
     filteredPurchaseOrders = purchaseOrders.filter(row=>{
 
-        return (
+        const matchSearch =
 
             String(row["OrderID / PI NO"] || "")
-                .toLowerCase()
-                .includes(keyword)
+            .toLowerCase()
+            .includes(keyword)
 
             ||
 
-            String(row["Supplier"] || "")
-                .toLowerCase()
-                .includes(keyword)
+            String(row.Supplier || "")
+            .toLowerCase()
+            .includes(keyword)
 
             ||
 
-            String(row["MODELS"] || "")
-                .toLowerCase()
-                .includes(keyword)
+            String(row.MODELS || "")
+            .toLowerCase()
+            .includes(keyword);
 
-        );
+        const matchStatus =
+
+            status === ""
+
+            ||
+
+            String(row.STATUS || "")
+            .toLowerCase() === status;
+
+        return matchSearch && matchStatus;
 
     });
 
-    console.log("Filtered:", filteredPurchaseOrders.length);
+    buildPurchaseOrders();
+
+}// ======================================================
+// RESET PURCHASE ORDERS
+// ======================================================
+
+function resetPurchaseOrders(){
+
+    document.getElementById("poSearch").value = "";
+
+    document.getElementById("statusFilter").value = "";
+
+    filteredPurchaseOrders = [...purchaseOrders];
 
     buildPurchaseOrders();
 
