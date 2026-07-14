@@ -946,13 +946,14 @@ th{
 
 #purchaseCards{
 
-    display:grid;
+    width:95%;
+    max-width:1400px;
+    margin:30px auto;
 
-    grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+    display:flex;
+    flex-direction:column;
 
     gap:25px;
-
-    margin:30px;
 
 }/* =====================================================
    PURCHASE ORDER CARD
@@ -1089,11 +1090,18 @@ th{
 .purchase-card{
 
     width:100%;
+
     background:#fff;
+
     border-radius:18px;
-    padding:24px;
-    margin:20px auto;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    padding:25px;
+
+    margin:0;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    display:block;
 
 }
 
