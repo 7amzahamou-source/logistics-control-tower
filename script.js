@@ -1334,6 +1334,8 @@ function buildPurchaseOrders(){
 
     Object.keys(groups).forEach(pi=>{
 
+    const safeId = pi.replace(/[^a-zA-Z0-9]/g,"");
+
         const rows = groups[pi];
 
         const supplier =
@@ -1484,14 +1486,14 @@ function buildPurchaseOrders(){
 
             <button
                 class="po-toggle"
-                onclick="togglePO('${pi}')">
+                onclick="togglePO('${safeId}')"
 
                 📋 View Models (${rows.length})
 
             </button>
 
             <div
-                id="po_${pi}"
+                id="po_${safeId}"
                 style="display:none;">
 
                 <table class="po-table">
@@ -1540,19 +1542,13 @@ function togglePO(id){
 
     if(!box) return;
 
-    const button = event.target;
-
     if(box.style.display === "none" || box.style.display === ""){
 
         box.style.display = "block";
 
-        button.innerHTML = "📂 Hide Models";
-
     }else{
 
         box.style.display = "none";
-
-        button.innerHTML = "📋 View Models";
 
     }
 
