@@ -131,17 +131,15 @@ function fillTable(data){
 
             <td>${index+1}</td>
 
-            <td>
+          <td>
 
-                <a href="#"
+             <span class="pi-number">
 
-                onclick="openShipment('${row["P I"]}');return false;">
+              ${row["P I"] || "-"}
 
-                    ${row["P I"]||"-"}
+             </span>
 
-                </a>
-
-            </td>
+          </td>
 
             <td>${row["C/I No"]||"-"}</td>
 
