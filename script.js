@@ -18,7 +18,7 @@ const API_URL =
 // ======================================================
 
 let shipments = [];
-
+let purchaseOrders = [];
 let filteredData = [];
 
 let factoryChart = null;
@@ -38,15 +38,19 @@ async function loadData(){
 
         const response = await fetch(API_URL);
 
-        shipments = await response.json();
+        const data = await response.json();
 
-        shipments.sort((a,b)=>{
+      shipments = data.SHIPPING1;
 
-            return new Date(a["ETA"]) - new Date(b["ETA"]);
+purchaseOrders = data.FOLLOW_UP;
 
-        });
+console.log("data =", data);
+console.log("shipments =", shipments);
+console.log("isArray =", Array.isArray(shipments));
 
         filteredData = [...shipments];
+
+        // buildPurchaseOrders();
 
         loadFilters();
 
@@ -110,7 +114,6 @@ window.addEventListener("resize",()=>{
 // START APPLICATION
 // ======================================================
 
-loadData();// ======================================================
 // DESKTOP TABLE
 // ======================================================
 
@@ -1286,7 +1289,31 @@ window.addEventListener("resize",()=>{
 });
 
 
+// ======================================================
+// SHOW PAGE
+// ======================================================
 
+function showPage(pageId, button){
+
+    // إخفاء جميع الصفحات
+    document.querySelectorAll("section.page").forEach(page=>{
+        page.style.display = "none";
+    });
+
+    // إظهار الصفحة المطلوبة
+    document.getElementById(pageId).style.display = "block";
+
+    // إزالة active من جميع الأزرار
+    document.querySelectorAll(".menu-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    // تفعيل الزر الحالي
+    if(button){
+        button.classList.add("active");
+    }
+
+}
 // ======================================================
 // PAGE LOADED
 // ======================================================
@@ -1295,4 +1322,34 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     loadData();
 
-});
+});// ======================================================
+// BUILD PURCHASE ORDERS
+// ======================================================
+
+function buildPurchaseOrders(){
+
+    purchaseOrders = [];
+
+    const groups = {};
+
+    shipments.forEach(row=>{
+
+        const pi = row["P I"];
+
+        if(!pi) return;
+
+        if(!groups[pi]){
+
+            groups[pi] = [];
+
+        }
+
+        groups[pi].push(row);
+
+    });
+
+    purchaseOrders = Object.values(groups);
+
+    console.log(purchaseOrders);
+
+}
