@@ -348,8 +348,9 @@
             
             onkeyup="filterPurchaseOrders()">
 
-        <select id="statusFilter">
-
+        <select 
+             id="statusFilter"
+             onchange="filterPurchaseOrders()">
             <option value="">
 
                 All Status
@@ -376,7 +377,7 @@
 
         </select>
 
-        <button>
+        <button onclick="resetPurchaseOrders()">
 
             Reset
 
