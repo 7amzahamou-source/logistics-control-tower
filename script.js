@@ -1274,6 +1274,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 });// ======================================================
 // PURCHASE ORDERS
 // ======================================================
+
 function buildPurchaseOrders(){
 
     const container = document.getElementById("purchaseCards");
@@ -1291,6 +1292,7 @@ function buildPurchaseOrders(){
         `;
 
         return;
+
     }
 
     let totalQty = 0;
@@ -1303,12 +1305,15 @@ function buildPurchaseOrders(){
         const pi = row["OrderID / PI NO"];
 
         if(!groups[pi]){
+
             groups[pi] = [];
+
         }
 
         groups[pi].push(row);
 
         totalQty += Number(row["TOTAL QTY"] || 0);
+
         totalShipped += Number(row["SHIPPED"] || 0);
 
     });
@@ -1320,26 +1325,37 @@ function buildPurchaseOrders(){
         totalQty.toLocaleString();
 
     document.getElementById("supplierCount").innerText =
-        new Set(purchaseOrders.map(r=>r.Supplier)).size;
+        new Set(
+            purchaseOrders.map(r=>r.Supplier)
+        ).size;
 
     document.getElementById("completedPO").innerText =
-        Math.round((totalShipped/totalQty)*100) + "%";
-
+        Math.round((totalShipped / totalQty) * 100) + "%";
 
     Object.keys(groups).forEach(pi=>{
 
         const rows = groups[pi];
 
-        const supplier = rows[0]["Supplier"] || "-";
+        const supplier =
+            rows[0]["Supplier"] || "-";
 
         const qty =
-            rows.reduce((a,b)=>a+Number(b["TOTAL QTY"]||0),0);
+            rows.reduce(
+                (a,b)=>a+Number(b["TOTAL QTY"]||0),
+                0
+            );
 
         const shipped =
-            rows.reduce((a,b)=>a+Number(b["SHIPPED"]||0),0);
+            rows.reduce(
+                (a,b)=>a+Number(b["SHIPPED"]||0),
+                0
+            );
 
         const remaining =
-            rows.reduce((a,b)=>a+Number(b["REMAINING"]||0),0);
+            rows.reduce(
+                (a,b)=>a+Number(b["REMAINING"]||0),
+                0
+            );
 
         const percent =
             qty
@@ -1352,53 +1368,70 @@ function buildPurchaseOrders(){
 
             let color = "#f44336";
 
-            if(r.STATUS=="done")
+            if(r.STATUS==="done")
                 color="#2ecc71";
 
-            else if(r.STATUS=="done partial")
+            else if(r.STATUS==="done partial")
                 color="#f39c12";
 
             modelsHTML += `
-            <tr>
+                <tr>
 
-                <td>${r.MODELS}</td>
+                    <td>${r.MODELS}</td>
 
-                <td>${Number(r["TOTAL QTY"]).toLocaleString()}</td>
+                    <td>${Number(r["TOTAL QTY"]).toLocaleString()}</td>
 
-                <td>${Number(r.SHIPPED).toLocaleString()}</td>
+                    <td>${Number(r.SHIPPED).toLocaleString()}</td>
 
-                <td>${Number(r.REMAINING).toLocaleString()}</td>
+                    <td>${Number(r.REMAINING).toLocaleString()}</td>
 
-                <td>
+                    <td>
 
-                    <span
-                    style="
-                        color:white;
-                        background:${color};
-                        padding:4px 10px;
-                        border-radius:20px;
-                        font-size:12px;
-                    ">
-                        ${r.STATUS}
-                    </span>
+                        <span
+                        style="
+                            color:white;
+                            background:${color};
+                            padding:4px 10px;
+                            border-radius:20px;
+                            font-size:12px;
+                        ">
 
-                </td>
+                            ${r.STATUS}
 
-            </tr>
+                        </span>
+
+                    </td>
+
+                </tr>
             `;
 
-        });
-
-        container.innerHTML += `
+        });        container.innerHTML += `
 
         <div class="purchase-card">
 
-            <h2>📦 ${pi}</h2>
+            <div class="purchase-header">
 
-            <p>
-                <b>Supplier:</b>
-                ${supplier}
-            </p>
+                <div class="purchase-info">
+
+                    <h2>📦 ${pi}</h2>
+
+                    <p>
+
+                        <strong>Supplier:</strong>
+
+                        ${supplier}
+
+                    </p>
+
+                </div>
+
+                <div class="purchase-percent">
+
+                    ${percent}%
+
+                </div>
+
+            </div>
 
             <div class="progress">
 
@@ -1410,24 +1443,41 @@ function buildPurchaseOrders(){
             </div>
 
             <div class="progress-text">
+
                 ${percent}% Completed
+
             </div>
 
             <div class="po-summary">
 
                 <div>
-                    <strong>Total</strong><br>
+
+                    <strong>Total Qty</strong>
+
+                    <br>
+
                     ${qty.toLocaleString()}
+
                 </div>
 
                 <div>
-                    <strong>Shipped</strong><br>
+
+                    <strong>Shipped</strong>
+
+                    <br>
+
                     ${shipped.toLocaleString()}
+
                 </div>
 
                 <div>
-                    <strong>Remaining</strong><br>
+
+                    <strong>Remaining</strong>
+
+                    <br>
+
                     ${remaining.toLocaleString()}
+
                 </div>
 
             </div>
@@ -1436,7 +1486,7 @@ function buildPurchaseOrders(){
                 class="po-toggle"
                 onclick="togglePO('${pi}')">
 
-                📋 View Models
+                📋 View Models (${rows.length})
 
             </button>
 
@@ -1444,47 +1494,33 @@ function buildPurchaseOrders(){
                 id="po_${pi}"
                 style="display:none;">
 
-                <button
-class="po-toggle"
-onclick="togglePO('${pi}')">
+                <table class="po-table">
 
-📋 View Models
+                    <thead>
 
-</button>
+                        <tr>
 
-<div
-id="po_${pi}"
-style="display:none;">
+                            <th>Model</th>
 
-<table class="po-table">
+                            <th>Total</th>
 
-    <thead>
+                            <th>Shipped</th>
 
-        <tr>
+                            <th>Remaining</th>
 
-            <th>Model</th>
+                            <th>Status</th>
 
-            <th>Total</th>
+                        </tr>
 
-            <th>Shipped</th>
+                    </thead>
 
-            <th>Remaining</th>
+                    <tbody>
 
-            <th>Status</th>
+                        ${modelsHTML}
 
-        </tr>
+                    </tbody>
 
-    </thead>
-
-    <tbody>
-
-        ${modelsHTML}
-
-    </tbody>
-
-</table>
-
-</div>
+                </table>
 
             </div>
 
@@ -1494,31 +1530,29 @@ style="display:none;">
 
     });
 
-}function togglePO(id){
+}// ======================================================
+// TOGGLE PURCHASE ORDER
+// ======================================================
+
+function togglePO(id){
 
     const box = document.getElementById("po_" + id);
 
-    if(box.style.display === "none"){
+    if(!box) return;
+
+    const button = event.target;
+
+    if(box.style.display === "none" || box.style.display === ""){
 
         box.style.display = "block";
+
+        button.innerHTML = "📂 Hide Models";
 
     }else{
 
         box.style.display = "none";
 
-    }
-
-}function togglePO(id){
-
-    const box = document.getElementById("po_" + id);
-
-    if(box.style.display === "none"){
-
-        box.style.display = "block";
-
-    }else{
-
-        box.style.display = "none";
+        button.innerHTML = "📋 View Models";
 
     }
 
