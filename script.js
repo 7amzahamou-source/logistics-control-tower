@@ -1486,7 +1486,7 @@ function buildPurchaseOrders(){
 
             <button
                 class="po-toggle"
-                onclick="togglePO('${safeId}')"
+                onclick="togglePO('${safeId}')">
 
                 📋 View Models (${rows.length})
 
@@ -1542,14 +1542,9 @@ function togglePO(id){
 
     if(!box) return;
 
-    if(box.style.display === "none" || box.style.display === ""){
-
-        box.style.display = "block";
-
-    }else{
-
-        box.style.display = "none";
-
-    }
+    box.style.display =
+        box.style.display === "none"
+        ? "block"
+        : "none";
 
 }
