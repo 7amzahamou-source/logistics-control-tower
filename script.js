@@ -1242,29 +1242,49 @@ window.addEventListener("resize",()=>{
 // SHOW PAGE
 // ======================================================
 
-function showPage(pageId, button){
+function showPage(pageId, button = null){
 
     // إخفاء جميع الصفحات
-    document.querySelectorAll("section").forEach(page=>{
+    document.querySelectorAll(".page").forEach(page=>{
+
         page.style.display = "none";
+
     });
 
     // إظهار الصفحة المطلوبة
-    document.getElementById(pageId).style.display = "block";
+    const page = document.getElementById(pageId);
 
-    // إزالة active
-    document.querySelectorAll(".menu-btn").forEach(btn=>{
-        btn.classList.remove("active");
-    });
+    if(page){
 
-    // تفعيل الزر
-    if(button){
-        button.classList.add("active");
+        page.style.display = "block";
+
     }
 
-    // عند فتح صفحة Purchase Orders
-    if(pageId === "purchasePage"){
-        buildPurchaseOrders();
+    // إزالة Active
+    document.querySelectorAll(".menu-btn").forEach(btn=>{
+
+        btn.classList.remove("active");
+
+    });
+
+    // إذا ضغط المستخدم من القائمة
+    if(button){
+
+        button.classList.add("active");
+
+    }else{
+
+        // إذا جاء من Breadcrumb فعّل الزر المناسب تلقائياً
+        const btn = document.querySelector(
+            `.menu-btn[onclick*="${pageId}"]`
+        );
+
+        if(btn){
+
+            btn.classList.add("active");
+
+        }
+
     }
 
 }
