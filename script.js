@@ -63,6 +63,8 @@ filteredData = [...shipments];
 
         console.log("Shipments :", shipments.length);
         console.log("Purchase Orders :", purchaseOrders.length);
+        console.log(purchaseOrders[0]);
+        console.log(Object.keys(purchaseOrders[0]));
 
         loadFilters();
 
