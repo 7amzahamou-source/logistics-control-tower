@@ -1274,11 +1274,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 });// ======================================================
 // PURCHASE ORDERS
 // ======================================================
-
 function buildPurchaseOrders(){
 
-    const container =
-    document.getElementById("purchaseCards");
+    const container = document.getElementById("purchaseCards");
 
     if(!container) return;
 
@@ -1297,7 +1295,6 @@ function buildPurchaseOrders(){
 
     let totalQty = 0;
     let totalShipped = 0;
-    let totalRemaining = 0;
 
     const groups = {};
 
@@ -1306,16 +1303,13 @@ function buildPurchaseOrders(){
         const pi = row["OrderID / PI NO"];
 
         if(!groups[pi]){
-
-            groups[pi]=[];
-
+            groups[pi] = [];
         }
 
         groups[pi].push(row);
 
-        totalQty += Number(row["TOTAL QTY"]||0);
-        totalShipped += Number(row["SHIPPED"]||0);
-        totalRemaining += Number(row["REMAINING"]||0);
+        totalQty += Number(row["TOTAL QTY"] || 0);
+        totalShipped += Number(row["SHIPPED"] || 0);
 
     });
 
@@ -1326,47 +1320,37 @@ function buildPurchaseOrders(){
         totalQty.toLocaleString();
 
     document.getElementById("supplierCount").innerText =
-        new Set(
-            purchaseOrders.map(r=>r.Supplier)
-        ).size;
-
-    const percent =
-        Math.round(
-            (totalShipped/totalQty)*100
-        );
+        new Set(purchaseOrders.map(r=>r.Supplier)).size;
 
     document.getElementById("completedPO").innerText =
-        percent + "%";    Object.keys(groups).forEach(pi=>{
+        Math.round((totalShipped/totalQty)*100) + "%";
+
+
+    Object.keys(groups).forEach(pi=>{
 
         const rows = groups[pi];
 
-        const supplier =
-            rows[0]["Supplier"] || "-";
+        const supplier = rows[0]["Supplier"] || "-";
 
         const qty =
-            rows.reduce((a,b)=>
-                a+Number(b["TOTAL QTY"]||0),0);
+            rows.reduce((a,b)=>a+Number(b["TOTAL QTY"]||0),0);
 
         const shipped =
-            rows.reduce((a,b)=>
-                a+Number(b["SHIPPED"]||0),0);
+            rows.reduce((a,b)=>a+Number(b["SHIPPED"]||0),0);
 
         const remaining =
-            rows.reduce((a,b)=>
-                a+Number(b["REMAINING"]||0),0);
+            rows.reduce((a,b)=>a+Number(b["REMAINING"]||0),0);
 
         const percent =
             qty
-            ?
-            Math.round((shipped/qty)*100)
-            :
-            0;
+            ? Math.round((shipped/qty)*100)
+            : 0;
 
         let modelsHTML = "";
 
         rows.forEach(r=>{
 
-            let color="#f44336";
+            let color = "#f44336";
 
             if(r.STATUS=="done")
                 color="#2ecc71";
@@ -1375,7 +1359,6 @@ function buildPurchaseOrders(){
                 color="#f39c12";
 
             modelsHTML += `
-
             <tr>
 
                 <td>${r.MODELS}</td>
@@ -1390,20 +1373,18 @@ function buildPurchaseOrders(){
 
                     <span
                     style="
-                    color:white;
-                    background:${color};
-                    padding:4px 10px;
-                    border-radius:20px;
-                    font-size:12px;">
-
-                    ${r.STATUS}
-
+                        color:white;
+                        background:${color};
+                        padding:4px 10px;
+                        border-radius:20px;
+                        font-size:12px;
+                    ">
+                        ${r.STATUS}
                     </span>
 
                 </td>
 
             </tr>
-
             `;
 
         });
@@ -1415,95 +1396,130 @@ function buildPurchaseOrders(){
             <h2>📦 ${pi}</h2>
 
             <p>
-
                 <b>Supplier:</b>
-
                 ${supplier}
-
             </p>
 
             <div class="progress">
 
                 <div
-                class="progress-fill"
-                style="width:${percent}%">
-
+                    class="progress-fill"
+                    style="width:${percent}%">
                 </div>
 
             </div>
 
             <div class="progress-text">
-
                 ${percent}% Completed
-
             </div>
 
             <div class="po-summary">
 
                 <div>
-
-                    <strong>Total</strong>
-
-                    <br>
-
+                    <strong>Total</strong><br>
                     ${qty.toLocaleString()}
-
                 </div>
 
                 <div>
-
-                    <strong>Shipped</strong>
-
-                    <br>
-
+                    <strong>Shipped</strong><br>
                     ${shipped.toLocaleString()}
-
                 </div>
 
                 <div>
-
-                    <strong>Remaining</strong>
-
-                    <br>
-
+                    <strong>Remaining</strong><br>
                     ${remaining.toLocaleString()}
-
                 </div>
 
             </div>
 
-            <table class="po-table">
+            <button
+                class="po-toggle"
+                onclick="togglePO('${pi}')">
 
-                <thead>
+                📋 View Models
 
-                    <tr>
+            </button>
 
-                        <th>Model</th>
+            <div
+                id="po_${pi}"
+                style="display:none;">
 
-                        <th>Total</th>
+                <button
+class="po-toggle"
+onclick="togglePO('${pi}')">
 
-                        <th>Shipped</th>
+📋 View Models
 
-                        <th>Remaining</th>
+</button>
 
-                        <th>Status</th>
+<div
+id="po_${pi}"
+style="display:none;">
 
-                    </tr>
+<table class="po-table">
 
-                </thead>
+    <thead>
 
-                <tbody>
+        <tr>
 
-                    ${modelsHTML}
+            <th>Model</th>
 
-                </tbody>
+            <th>Total</th>
 
-            </table>
+            <th>Shipped</th>
+
+            <th>Remaining</th>
+
+            <th>Status</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        ${modelsHTML}
+
+    </tbody>
+
+</table>
+
+</div>
+
+            </div>
 
         </div>
 
         `;
 
     });
+
+}function togglePO(id){
+
+    const box = document.getElementById("po_" + id);
+
+    if(box.style.display === "none"){
+
+        box.style.display = "block";
+
+    }else{
+
+        box.style.display = "none";
+
+    }
+
+}function togglePO(id){
+
+    const box = document.getElementById("po_" + id);
+
+    if(box.style.display === "none"){
+
+        box.style.display = "block";
+
+    }else{
+
+        box.style.display = "none";
+
+    }
 
 }
