@@ -19,6 +19,7 @@ const API_URL =
 
 let shipments = [];
 let purchaseOrders = [];
+let filteredPurchaseOrders = [];
 let filteredData = [];
 
 let factoryChart = null;
@@ -52,6 +53,8 @@ shipments = Array.isArray(data.SHIPPING1)
 purchaseOrders = Array.isArray(data.FOLLOW_UP)
     ? data.FOLLOW_UP
     : [];
+
+filteredPurchaseOrders = [...purchaseOrders];
 
 console.log("First Shipment:", shipments[0]);
 console.log("Total Shipments:", shipments.length);
@@ -1283,7 +1286,7 @@ function buildPurchaseOrders(){
 
     container.innerHTML = "";
 
-    if(!purchaseOrders.length){
+    if(!filteredPurchaseOrders.length){
 
         container.innerHTML = `
             <div class="card">
@@ -1300,7 +1303,7 @@ function buildPurchaseOrders(){
 
     const groups = {};
 
-    purchaseOrders.forEach(row=>{
+    filteredPurchaseOrders.forEach(row=>{
 
         const pi = row["OrderID / PI NO"];
 
@@ -1326,7 +1329,7 @@ function buildPurchaseOrders(){
 
     document.getElementById("supplierCount").innerText =
         new Set(
-            purchaseOrders.map(r=>r.Supplier)
+            filteredPurchaseOrders.map(r=>r.Supplier)
         ).size;
 
     document.getElementById("completedPO").innerText =
@@ -1552,29 +1555,42 @@ function togglePO(id){
 // FILTER PURCHASE ORDERS
 // ======================================================
 
+// ======================================================
+// FILTER PURCHASE ORDERS
+// ======================================================
+
 function filterPurchaseOrders(){
 
     const keyword = document
         .getElementById("poSearch")
         .value
+        .trim()
         .toLowerCase();
 
-    const cards = document.querySelectorAll(".purchase-card");
+    filteredPurchaseOrders = purchaseOrders.filter(row=>{
 
-    cards.forEach(card=>{
+        return (
 
-        const text = card.innerText.toLowerCase();
+            (row["OrderID / PI NO"] || "")
+                .toLowerCase()
+                .includes(keyword)
 
-        if(text.includes(keyword)){
+            ||
 
-            card.style.display = "block";
+            (row["Supplier"] || "")
+                .toLowerCase()
+                .includes(keyword)
 
-        }else{
+            ||
 
-            card.style.display = "none";
+            (row["MODELS"] || "")
+                .toLowerCase()
+                .includes(keyword)
 
-        }
+        );
 
     });
+
+    buildPurchaseOrders();
 
 }
