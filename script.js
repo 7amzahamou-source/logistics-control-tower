@@ -1446,8 +1446,8 @@ function buildPurchaseOrders(){
 
             <div class="progress-text">
 
-                ${percent}% Completed
-
+                    <span>${percent}% Completed</span>
+                    <span>${rows.length} Models</span>
             </div>
 
             <div class="po-summary">
