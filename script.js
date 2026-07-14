@@ -1561,11 +1561,17 @@ function togglePO(id){
 
 function filterPurchaseOrders(){
 
+    console.log("Search Fired");
+
     const keyword = document
         .getElementById("poSearch")
         .value
         .trim()
         .toLowerCase();
+
+    console.log(keyword);
+
+    console.log("Total PO:", purchaseOrders.length);
 
     filteredPurchaseOrders = purchaseOrders.filter(row=>{
 
@@ -1590,6 +1596,8 @@ function filterPurchaseOrders(){
         );
 
     });
+
+    console.log("Filtered:", filteredPurchaseOrders.length);
 
     buildPurchaseOrders();
 
