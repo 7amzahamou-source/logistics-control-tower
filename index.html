@@ -15,84 +15,84 @@
 
 <body>
 
-<!-- ================= DASHBOARD ================= -->
+<!-- =====================================================
+     DASHBOARD PAGE
+====================================================== -->
 
-<section id="dashboardPage">
+<section id="dashboardPage" class="page">
 
 <header>
 
-<div class="header-grid">
+    <div class="header-grid">
 
-    <!-- LEFT MENU -->
+        <!-- ================= LEFT MENU ================= -->
 
-    <div class="top-menu">
+        <div class="top-menu">
 
-        <button class="menu-btn active"
-            onclick="showPage('dashboardPage',this)">
-            🏠 Dashboard
-        </button>
+            <button class="menu-btn active"
+                onclick="showPage('dashboardPage',this)">
+                🏠 Dashboard
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('shipmentsPage',this)">
-            🚢 Shipments
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('shipmentsPage',this)">
+                🚢 Shipments
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('purchasePage',this)">
-            📦 Purchase Orders
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('purchasePage',this)">
+                📦 Purchase Orders
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('invoicePage',this)">
-            📄 Invoices
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('invoicePage',this)">
+                📄 Invoices
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('containerPage',this)">
-            📦 Containers
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('containerPage',this)">
+                📦 Containers
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('analyticsPage',this)">
-            📈 Analytics
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('analyticsPage',this)">
+                📈 Analytics
+            </button>
 
-        <button class="menu-btn"
-            onclick="showPage('settingsPage',this)">
-            ⚙ Settings
-        </button>
+            <button class="menu-btn"
+                onclick="showPage('settingsPage',this)">
+                ⚙ Settings
+            </button>
+
+        </div>
+
+        <!-- ================= TITLE ================= -->
+
+        <div class="header-title">
+
+            <h1>📊 Logistics Control Tower</h1>
+
+            <p class="subtitle">
+
+                Real-Time Shipment Monitoring & Analytics
+
+            </p>
+
+            <p class="powered">
+
+                Designed & Developed by
+
+                <strong>Hamza Hamou</strong>
+
+            </p>
+
+        </div>
 
     </div>
 
-
-    <!-- TITLE -->
-
-    <div class="header-title">
-
-        <h1>📊 Logistics Control Tower</h1>
-
-        <p class="subtitle">
-
-            Real-Time Shipment Monitoring & Analytics
-
-        </p>
-
-        <p class="powered">
-
-            Designed & Developed by
-
-            <strong>Hamza Hamou</strong>
-
-        </p>
-
-    </div>
-
-</div>
-
-</header>
-
-
-<!-- ================= KPI ================= -->
+</header><!-- =====================================================
+     KPI
+====================================================== -->
 
 <div class="cards">
 
@@ -115,7 +115,9 @@
 </div>
 
 
-<!-- ================= CHARTS ================= -->
+<!-- =====================================================
+     CHARTS
+====================================================== -->
 
 <div class="charts">
 
@@ -138,44 +140,34 @@
 </div>
 
 
-<!-- ================= FILTER ================= -->
+<!-- =====================================================
+     FILTERS
+====================================================== -->
 
 <div class="filter">
 
     <input
-
         id="search"
-
         type="text"
-
         placeholder="🔍 Search PI / Factory / Model..."
-
         onkeyup="applyFilters()">
 
     <select
-
         id="factoryFilter"
-
         onchange="applyFilters()">
 
         <option value="">
-
             All Factories
-
         </option>
 
     </select>
 
     <select
-
         id="podFilter"
-
         onchange="applyFilters()">
 
         <option value="">
-
             All POD
-
         </option>
 
     </select>
@@ -189,48 +181,54 @@
 </div>
 
 
-<!-- ================= TABLE ================= -->
+<!-- =====================================================
+     TABLE
+====================================================== -->
 
 <div class="table-container">
 
-<table>
+    <table>
 
-<thead>
+        <thead>
 
-<tr>
+            <tr>
 
-<th>#</th>
+                <th>#</th>
 
-<th onclick="sortTable('P I')">PI</th>
+                <th onclick="sortTable('P I')">PI</th>
 
-<th onclick="sortTable('C/I No')">C/I No</th>
+                <th onclick="sortTable('C/I No')">C/I No</th>
 
-<th onclick="sortTable('FACTORY')">FACTORY</th>
+                <th onclick="sortTable('FACTORY')">FACTORY</th>
 
-<th onclick="sortTable('ENTRY')">ENTRY</th>
+                <th onclick="sortTable('ENTRY')">ENTRY</th>
 
-<th onclick="sortTable('HQ')">HQ</th>
+                <th onclick="sortTable('HQ')">HQ</th>
 
-<th onclick="sortTable('POD')">POD</th>
+                <th onclick="sortTable('POD')">POD</th>
 
-<th onclick="sortTable('MODEL')">MODEL</th>
+                <th onclick="sortTable('MODEL')">MODEL</th>
 
-<th onclick="sortTable('QTY')">QTY</th>
+                <th onclick="sortTable('QTY')">QTY</th>
 
-<th onclick="sortTable('ETA')">ETA</th>
+                <th onclick="sortTable('ETA')">ETA</th>
 
-</tr>
+            </tr>
 
-</thead>
+        </thead>
 
-<tbody id="shipmentTable">
+        <tbody id="shipmentTable">
 
-</tbody>
+        </tbody>
 
-</table>
+    </table>
 
 </div>
-<!-- ================= MOBILE CARDS ================= -->
+
+
+<!-- =====================================================
+     MOBILE VIEW
+====================================================== -->
 
 <div id="mobileCards">
 
@@ -249,73 +247,263 @@
     </div>
 
 </div>
-</section><!-- ================= SHIPMENTS PAGE ================= -->
 
-<section id="shipmentsPage" style="display:none;">
+</section><!-- =====================================================
+     SHIPMENTS PAGE
+====================================================== -->
 
-    <h2>🚢 Shipments</h2>
+<section id="shipmentsPage" class="page" style="display:none;">
 
-    <p>Coming Soon...</p>
+    <div class="page-header">
 
-</section>
+        <h1>🚢 Shipments</h1>
 
+        <p>
 
-<!-- ================= PURCHASE PAGE ================= -->
+            Shipment Management & Tracking
 
-<section id="purchasePage" style="display:none;">
+        </p>
 
-    <h2>📦 Purchase Orders</h2>
+    </div>
 
-    <p>Coming Soon...</p>
+    <div class="coming-soon">
 
-</section>
+        <h2>Coming Soon...</h2>
 
-
-<!-- ================= INVOICE PAGE ================= -->
-
-<section id="invoicePage" style="display:none;">
-
-    <h2>📄 Invoices</h2>
-
-    <p>Coming Soon...</p>
+    </div>
 
 </section>
 
 
-<!-- ================= CONTAINER PAGE ================= -->
 
-<section id="containerPage" style="display:none;">
+<!-- =====================================================
+     PURCHASE ORDERS PAGE
+====================================================== -->
 
-    <h2>📦 Containers</h2>
+<section id="purchasePage" class="page" style="display:none;">
 
-    <p>Coming Soon...</p>
+    <div class="page-header">
+
+        <h1>📦 Purchase Orders</h1>
+
+        <p>
+
+            Purchase Orders Tracking & Progress
+
+        </p>
+
+    </div>
+
+
+    <!-- KPI -->
+
+    <div class="po-cards">
+
+        <div class="card">
+
+            <h3>Total POs</h3>
+
+            <h2 id="poCount">0</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Total Qty</h3>
+
+            <h2 id="poQty">0</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Suppliers</h3>
+
+            <h2 id="supplierCount">0</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Completed</h3>
+
+            <h2 id="completedPO">0%</h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="filter">
+
+        <input
+
+            id="poSearch"
+
+            type="text"
+
+            placeholder="🔍 Search PI / Supplier / Model">
+
+        <select id="statusFilter">
+
+            <option value="">
+
+                All Status
+
+            </option>
+
+            <option value="done">
+
+                Done
+
+            </option>
+
+            <option value="done partial">
+
+                Partial
+
+            </option>
+
+            <option value="not shipped any">
+
+                Not Shipped
+
+            </option>
+
+        </select>
+
+        <button>
+
+            Reset
+
+        </button>
+
+    </div>
+
+
+    <!-- PURCHASE ORDER CARDS -->
+
+    <div id="purchaseCards">
+
+    </div>
 
 </section>
 
 
-<!-- ================= ANALYTICS PAGE ================= -->
 
-<section id="analyticsPage" style="display:none;">
+<!-- =====================================================
+     INVOICES PAGE
+====================================================== -->
 
-    <h2>📈 Analytics</h2>
+<section id="invoicePage" class="page" style="display:none;">
 
-    <p>Coming Soon...</p>
+    <div class="page-header">
+
+        <h1>📄 Invoices</h1>
+
+        <p>
+
+            Invoice Tracking
+
+        </p>
+
+    </div>
+
+    <div class="coming-soon">
+
+        <h2>Coming Soon...</h2>
+
+    </div>
 
 </section>
 
 
-<!-- ================= SETTINGS PAGE ================= -->
 
-<section id="settingsPage" style="display:none;">
+<!-- =====================================================
+     CONTAINERS PAGE
+====================================================== -->
 
-    <h2>⚙ Settings</h2>
+<section id="containerPage" class="page" style="display:none;">
 
-    <p>Coming Soon...</p>
+    <div class="page-header">
+
+        <h1>📦 Containers</h1>
+
+        <p>
+
+            Container Tracking
+
+        </p>
+
+    </div>
+
+    <div class="coming-soon">
+
+        <h2>Coming Soon...</h2>
+
+    </div>
 
 </section>
 
 
-<!-- ================= SIDE PANEL ================= -->
+
+<!-- =====================================================
+     ANALYTICS PAGE
+====================================================== -->
+
+<section id="analyticsPage" class="page" style="display:none;">
+
+    <div class="page-header">
+
+        <h1>📈 Analytics</h1>
+
+        <p>
+
+            Shipment Analytics
+
+        </p>
+
+    </div>
+
+    <div class="coming-soon">
+
+        <h2>Coming Soon...</h2>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SETTINGS PAGE
+====================================================== -->
+
+<section id="settingsPage" class="page" style="display:none;">
+
+    <div class="page-header">
+
+        <h1>⚙ Settings</h1>
+
+        <p>
+
+            System Settings
+
+        </p>
+
+    </div>
+
+    <div class="coming-soon">
+
+        <h2>Coming Soon...</h2>
+
+    </div>
+
+</section><!-- =====================================================
+     SIDE PANEL
+====================================================== -->
 
 <div id="sidePanel" class="side-panel">
 
@@ -323,7 +511,9 @@
 
         <h2>Shipment Details</h2>
 
-        <span class="close-panel" onclick="closePanel()">
+        <span
+            class="close-panel"
+            onclick="closePanel()">
 
             ✕
 
@@ -333,24 +523,40 @@
 
     <div id="panelContent">
 
-        <p>Select any PI to view details.</p>
+        <p>
+
+            Select any PI to view details.
+
+        </p>
 
     </div>
 
 </div>
 
 
-<!-- ================= LIBRARIES ================= -->
+
+<!-- =====================================================
+     JAVASCRIPT LIBRARIES
+====================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
 
-<!-- ================= SCRIPT ================= -->
 
-<script src="script.js"></script>
+<!-- =====================================================
+     MAIN SCRIPT
+====================================================== -->
+
+<script src="js/script.js"></script>
 
 </body>
 
-</html>
+</html><script src="js/script.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/purchase.js"></script>
+<script src="js/shipments.js"></script>
+<script src="js/invoices.js"></script>
+<script src="js/containers.js"></script>
+<script src="js/analytics.js"></script>
