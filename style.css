@@ -13,10 +13,15 @@ html{
 }
 
 body{
+
     font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+
     background:#f4f7fb;
+
     color:#222;
+
     overflow-x:hidden;
+
 }
 
 
@@ -137,10 +142,7 @@ header{
 
     font-weight:bold;
 
-}
-
-
-/* =====================================================
+}/* =====================================================
    KPI
 ===================================================== */
 
@@ -237,7 +239,7 @@ header{
 
 
 /* =====================================================
-   FILTERS
+   FILTER
 ===================================================== */
 
 .filter{
@@ -245,6 +247,8 @@ header{
     display:flex;
 
     justify-content:center;
+
+    align-items:center;
 
     flex-wrap:wrap;
 
@@ -267,6 +271,8 @@ header{
 
     font-size:15px;
 
+    background:#fff;
+
 }
 
 .filter button{
@@ -277,7 +283,7 @@ header{
 
     border:none;
 
-    padding:12px 20px;
+    padding:12px 22px;
 
     border-radius:8px;
 
@@ -289,9 +295,12 @@ header{
 
 .filter button:hover{
 
-    background:#0f2f52;
+    background:#1b75d0;
 
-}/* =====================================================
+}
+
+
+/* =====================================================
    TABLE
 ===================================================== */
 
@@ -306,33 +315,7 @@ header{
     padding:0 20px;
 
 }
-/* ==========================================
-   MOBILE VIEW
-========================================== */
 
-#mobileCards{
-
-    display:none;
-
-}
-
-@media(max-width:768px){
-
-    .table-container{
-
-        display:none;
-
-    }
-
-    #mobileCards{
-
-        display:block;
-
-        padding:15px;
-
-    }
-
-}
 table{
 
     width:100%;
@@ -357,15 +340,19 @@ thead{
 
     top:0;
 
-    z-index:5;
+    z-index:100;
 
 }
 
-th{
+thead th{
 
     background:#123456;
 
     color:#fff;
+
+}
+
+th{
 
     padding:14px;
 
@@ -381,7 +368,7 @@ th{
 
 th:hover{
 
-    background:#1f5f99;
+    background:#1b75d0;
 
 }
 
@@ -405,10 +392,7 @@ tbody tr:hover{
 
     background:#edf5ff;
 
-}
-
-
-/* =====================================================
+}/* =====================================================
    COLUMN WIDTH
 ===================================================== */
 
@@ -416,6 +400,7 @@ th:first-child,
 td:first-child{
 
     width:55px;
+    font-weight:bold;
 
 }
 
@@ -436,7 +421,7 @@ td:nth-child(3){
 th:nth-child(4),
 td:nth-child(4){
 
-    min-width:140px;
+    min-width:150px;
 
 }
 
@@ -464,7 +449,7 @@ td:nth-child(7){
 th:nth-child(8),
 td:nth-child(8){
 
-    min-width:350px;
+    min-width:380px;
 
     white-space:nowrap;
 
@@ -484,7 +469,7 @@ td:nth-child(9){
 th:nth-child(10),
 td:nth-child(10){
 
-    min-width:130px;
+    min-width:140px;
 
 }
 
@@ -509,11 +494,11 @@ td:nth-child(10){
 
     box-shadow:-6px 0 20px rgba(0,0,0,.18);
 
-    transition:.3s;
+    transition:.35s;
 
     z-index:9999;
 
-    overflow:auto;
+    overflow-y:auto;
 
 }
 
@@ -537,13 +522,19 @@ td:nth-child(10){
 
     padding:20px;
 
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
 }
 
 .close-panel{
 
-    cursor:pointer;
-
     font-size:28px;
+
+    cursor:pointer;
 
 }
 
@@ -553,11 +544,50 @@ td:nth-child(10){
 
 }
 
+
+/* =====================================================
+   PANEL TABLE
+===================================================== */
+
 #panelContent table{
 
     width:100%;
 
-    min-width:100%;
+    margin-top:15px;
+
+    border-collapse:collapse;
+
+}
+
+#panelContent th{
+
+    background:#123456;
+
+    color:#fff;
+
+    padding:10px;
+
+}
+
+#panelContent td{
+
+    padding:10px;
+
+    color:#222 !important;
+
+    background:#fff;
+
+}
+
+#panelContent tr{
+
+    background:#fff;
+
+}
+
+#panelContent tr:hover{
+
+    background:#f7f9fc;
 
 }
 
@@ -568,46 +598,54 @@ td:nth-child(10){
 
 .invoice-box{
 
-    background:#f8f9fb;
+    background:#f5f7fa;
 
-    border:1px solid #ddd;
+    border:1px solid #d9dee7;
 
-    border-radius:8px;
-
-    margin-bottom:12px;
+    border-radius:10px;
 
     padding:14px;
 
-    transition:.25s;
+    margin-bottom:12px;
 
 }
 
-.invoice-box:hover{
-
-    background:#123456;
-
-    color:#fff;
+.invoice-header{
 
     cursor:pointer;
 
+    font-weight:700;
+
+    color:#123456;
+
+    user-select:none;
+
 }
 
+.invoice-header:hover{
 
-/* =====================================================
+    color:#123456;
+
+}/* =====================================================
    SCROLLBAR
 ===================================================== */
 
 ::-webkit-scrollbar{
 
     width:10px;
-
     height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#eef2f7;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
-    background:#b8c3d1;
+    background:#aeb8c5;
 
     border-radius:10px;
 
@@ -615,98 +653,24 @@ td:nth-child(10){
 
 ::-webkit-scrollbar-thumb:hover{
 
-    background:#8fa0b8;
+    background:#8896a8;
 
 }
 
 
 /* =====================================================
-   RESPONSIVE
+   MOBILE CARDS
 ===================================================== */
 
-@media(max-width:1100px){
+#mobileCards{
 
-.header-grid{
-
-grid-template-columns:1fr;
+    display:none;
 
 }
-
-.top-menu{
-
-display:flex;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-}
-
-.menu-btn{
-
-text-align:center;
-
-}
-
-.charts{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.header-title h1{
-
-font-size:28px;
-
-}
-
-.subtitle{
-
-font-size:15px;
-
-}
-
-.cards{
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-.filter{
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-.filter input,
-.filter select,
-.filter button{
-
-width:95%;
-
-}
-
-.side-panel{
-
-width:100%;
-
-}
-
-}/* ==========================================
-   MOBILE CARDS
-========================================== */
 
 .shipment-card{
 
-    background:white;
+    background:#fff;
 
     border-radius:14px;
 
@@ -734,6 +698,10 @@ width:100%;
 
     justify-content:space-between;
 
+    align-items:center;
+
+    gap:15px;
+
     margin:8px 0;
 
     font-size:15px;
@@ -752,6 +720,8 @@ width:100%;
 
     font-weight:bold;
 
+    text-align:right;
+
 }
 
 .details-btn{
@@ -764,13 +734,15 @@ width:100%;
 
     border:none;
 
-    background:#123456;
-
-    color:white;
-
     border-radius:8px;
 
+    background:#123456;
+
+    color:#fff;
+
     cursor:pointer;
+
+    transition:.25s;
 
     font-size:15px;
 
@@ -779,5 +751,335 @@ width:100%;
 .details-btn:hover{
 
     background:#1b75d0;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width:1100px){
+
+    .header-grid{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .top-menu{
+
+        display:flex;
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+        gap:10px;
+
+        margin-bottom:20px;
+
+    }
+
+    .menu-btn{
+
+        text-align:center;
+
+    }
+
+    .charts{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .header-title h1{
+
+        font-size:28px;
+
+    }
+
+    .subtitle{
+
+        font-size:15px;
+
+    }
+
+    .cards{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .filter{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .filter input,
+    .filter select,
+    .filter button{
+
+        width:95%;
+
+    }
+
+    .table-container{
+
+        display:none;
+
+    }
+
+    #mobileCards{
+
+        display:block;
+
+        padding:15px;
+
+    }
+
+    .side-panel{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   FIXES
+===================================================== */
+
+/* منع تغير لون الفاتورة عند المرور */
+
+.invoice-box:hover{
+
+    background:#f5f7fa;
+
+}
+
+.invoice-box:hover *{
+
+    color:inherit !important;
+
+}
+
+/* ألوان جدول الموديلات */
+
+#panelContent table td{
+
+    color:#222 !important;
+
+}
+
+#panelContent table th{
+
+    color:#fff !important;
+
+}
+
+/* تحسين العناوين */
+
+th{
+
+    user-select:none;
+
+}
+
+.menu-btn,
+.details-btn{
+
+    user-select:none;
+
+}/* =====================================================
+   PURCHASE ORDERS PAGE
+===================================================== */
+
+.page-header{
+
+    margin:30px;
+
+}
+
+.page-header h1{
+
+    color:#123456;
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.page-header p{
+
+    color:#666;
+
+    font-size:16px;
+
+}
+
+.po-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin:30px;
+
+}
+
+#purchaseCards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+
+    gap:25px;
+
+    margin:30px;
+
+}/* =====================================================
+   PURCHASE ORDER CARD
+===================================================== */
+
+.po-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+    border-left:6px solid #123456;
+
+}
+
+.po-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.12);
+
+}
+
+.po-title{
+
+    font-size:22px;
+
+    color:#123456;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+.po-supplier{
+
+    color:#666;
+
+    margin-bottom:18px;
+
+    line-height:1.5;
+
+}
+
+.po-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:10px 0;
+
+}
+
+.po-label{
+
+    color:#666;
+
+}
+
+.po-value{
+
+    font-weight:bold;
+
+}
+
+.progress{
+
+    width:100%;
+
+    height:10px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin:18px 0;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    background:#16a34a;
+
+    border-radius:20px;
+
+}/* =====================================================
+   RESPONSIVE PURCHASE PAGE
+===================================================== */
+
+@media(max-width:900px){
+
+    .po-cards{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .po-cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    #purchaseCards{
+
+        grid-template-columns:1fr;
+
+        margin:15px;
+
+    }
 
 }
