@@ -1605,18 +1605,19 @@ function filterPurchaseOrders(){
 
     buildPurchaseOrders();
 
-}// ======================================================
+}
+// ======================================================
 // RESET PURCHASE ORDERS
 // ======================================================
 
 function resetPurchaseOrders(){
 
     document.getElementById("poSearch").value = "";
-
     document.getElementById("statusFilter").value = "";
 
     filteredPurchaseOrders = [...purchaseOrders];
 
     buildPurchaseOrders();
 
+    console.log("Purchase Orders Reset");
 }
