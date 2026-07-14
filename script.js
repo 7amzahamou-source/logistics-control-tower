@@ -1,7 +1,7 @@
 // ======================================================
 // Logistics Control Tower
 // Designed & Developed by Hamza Hamou
-// Version 3.0
+// Version 4.0
 // ======================================================
 
 
@@ -22,7 +22,6 @@ let purchaseOrders = [];
 let filteredData = [];
 
 let factoryChart = null;
-
 let etaChart = null;
 
 let sortDirection = {};
@@ -38,23 +37,35 @@ async function loadData(){
 
         const response = await fetch(API_URL);
 
+        if(!response.ok){
+
+            throw new Error("Unable to connect API");
+
+        }
+
         const data = await response.json();
 
-      shipments = data.SHIPPING1;
+shipments = Array.isArray(data.SHIPPING1)
+    ? data.SHIPPING1
+    : [];
 
-purchaseOrders = data.FOLLOW_UP;
+purchaseOrders = Array.isArray(data.FOLLOW_UP)
+    ? data.FOLLOW_UP
+    : [];
 
-console.log("data =", data);
-console.log("shipments =", shipments);
-console.log("isArray =", Array.isArray(shipments));
+console.log("First Shipment:", shipments[0]);
+console.log("Total Shipments:", shipments.length);
 
-        filteredData = [...shipments];
+filteredData = [...shipments];
 
-        // buildPurchaseOrders();
+        console.log("Shipments :", shipments.length);
+        console.log("Purchase Orders :", purchaseOrders.length);
 
         loadFilters();
 
         renderDashboard(filteredData);
+
+        buildPurchaseOrders();
 
     }
 
@@ -67,9 +78,7 @@ console.log("isArray =", Array.isArray(shipments));
     }
 
 }
-
-
-
+// ======================================================
 // ======================================================
 // RENDER DASHBOARD
 // ======================================================
@@ -82,9 +91,7 @@ function renderDashboard(data){
 
         fillMobileCards(data);
 
-    }
-
-    else{
+    }else{
 
         fillTable(data);
 
@@ -99,27 +106,15 @@ function renderDashboard(data){
 
 
 // ======================================================
-// WINDOW RESIZE
-// ======================================================
-
-window.addEventListener("resize",()=>{
-
-    renderDashboard(filteredData);
-
-});
-
-
-
-// ======================================================
-// START APPLICATION
-// ======================================================
-
 // DESKTOP TABLE
 // ======================================================
 
 function fillTable(data){
 
-    const table = document.getElementById("shipmentTable");
+    const table =
+    document.getElementById("shipmentTable");
+
+    if(!table) return;
 
     table.innerHTML = "";
 
@@ -137,25 +132,25 @@ function fillTable(data){
 
                 onclick="openShipment('${row["P I"]}');return false;">
 
-                    ${row["P I"]||""}
+                    ${row["P I"]||"-"}
 
                 </a>
 
             </td>
 
-            <td>${row["C/I No"]||""}</td>
+            <td>${row["C/I No"]||"-"}</td>
 
-            <td>${row["FACTORY"]||""}</td>
+            <td>${row["FACTORY"]||"-"}</td>
 
-            <td>${row["ENTRY"]||""}</td>
+            <td>${row["ENTRY"]||"-"}</td>
 
-            <td>${row["HQ"]||0}</td>
+            <td>${Number(row["HQ"]||0)}</td>
 
-            <td>${row["POD"]||""}</td>
+            <td>${row["POD"]||"-"}</td>
 
             <td title="${row["MODEL"]||""}">
 
-                ${row["MODEL"]||""}
+                ${row["MODEL"]||"-"}
 
             </td>
 
@@ -187,11 +182,12 @@ function fillTable(data){
 
 function fillMobileCards(data){
 
-   const container =
-document.getElementById("mobileCardsList");
+    const container =
+    document.getElementById("mobileCardsList");
+
     if(!container) return;
 
-    container.innerHTML="";
+    container.innerHTML = "";
 
     data.forEach(row=>{
 
@@ -247,7 +243,7 @@ document.getElementById("mobileCardsList");
 
                 <span class="shipment-value">
 
-                    ${row["HQ"]||0}
+                    ${Number(row["HQ"]||0)}
 
                 </span>
 
@@ -301,7 +297,11 @@ document.getElementById("mobileCardsList");
 
     });
 
-}// ======================================================
+}
+
+
+
+// ======================================================
 // KPI
 // ======================================================
 
@@ -309,26 +309,27 @@ function updateKPIs(data){
 
     const totalHQ = data.reduce(
 
-        (sum,row)=>sum + Number(row["HQ"]||0)
+        (sum,row)=>
+
+        sum + Number(row["HQ"]||0)
 
     ,0);
 
     const totalQty = data.reduce(
 
-        (sum,row)=>sum + Number(row["QTY"]||0)
+        (sum,row)=>
+
+        sum + Number(row["QTY"]||0)
 
     ,0);
 
-    document.getElementById("totalHQ").innerHTML =
+    document.getElementById("totalHQ").textContent =
     totalHQ.toLocaleString();
 
-    document.getElementById("totalQty").innerHTML =
+    document.getElementById("totalQty").textContent =
     totalQty.toLocaleString();
 
 }
-
-
-
 // ======================================================
 // LOAD FILTERS
 // ======================================================
@@ -341,44 +342,35 @@ function loadFilters(){
     const podFilter =
     document.getElementById("podFilter");
 
+    if(!factoryFilter || !podFilter) return;
+
     factoryFilter.innerHTML =
-    '<option value="">All Factories</option>';
+    `<option value="">All Factories</option>`;
 
     podFilter.innerHTML =
-    '<option value="">All POD</option>';
+    `<option value="">All POD</option>`;
 
-    const factories =
-
-    [...new Set(
+    const factories = [...new Set(
 
         shipments
-
         .map(r=>r["FACTORY"])
-
-        .filter(Boolean)
+        .filter(v=>v)
 
     )].sort();
 
-    const pods =
-
-    [...new Set(
+    const pods = [...new Set(
 
         shipments
-
         .map(r=>r["POD"])
-
-        .filter(Boolean)
+        .filter(v=>v)
 
     )].sort();
 
     factories.forEach(factory=>{
 
         factoryFilter.innerHTML +=
-
         `<option value="${factory}">
-
-        ${factory}
-
+            ${factory}
         </option>`;
 
     });
@@ -386,11 +378,8 @@ function loadFilters(){
     pods.forEach(pod=>{
 
         podFilter.innerHTML +=
-
         `<option value="${pod}">
-
-        ${pod}
-
+            ${pod}
         </option>`;
 
     });
@@ -405,94 +394,62 @@ function loadFilters(){
 
 function applyFilters(){
 
-   const desktopSearch =
-document.getElementById("search");
+    const desktopSearch =
+    document.getElementById("search");
 
-const mobileSearch =
-document.getElementById("mobileSearch");
+    const mobileSearch =
+    document.getElementById("mobileSearch");
 
-const search = (
-    desktopSearch?.value ||
-    mobileSearch?.value ||
-    ""
-).toLowerCase();
+    const search = (
+        desktopSearch?.value ||
+        mobileSearch?.value ||
+        ""
+    ).toLowerCase();
+
     const factory =
-
-    document
-
-    .getElementById("factoryFilter")
-
-    .value;
+    document.getElementById("factoryFilter")?.value || "";
 
     const pod =
-
-    document
-
-    .getElementById("podFilter")
-
-    .value;
+    document.getElementById("podFilter")?.value || "";
 
     filteredData = shipments.filter(row=>{
 
         const pi =
-
         (row["P I"]||"")
-
         .toString()
-
         .toLowerCase();
 
         const model =
-
         (row["MODEL"]||"")
-
         .toString()
-
         .toLowerCase();
 
         const fac =
-
         (row["FACTORY"]||"")
-
         .toString()
-
         .toLowerCase();
 
-        const matchSearch =
+        return(
 
-        pi.includes(search)
-
-        ||
-
-        model.includes(search)
-
-        ||
-
-        fac.includes(search);
-
-        const matchFactory =
-
-        factory=="" ||
-
-        row["FACTORY"]===factory;
-
-        const matchPOD =
-
-        pod=="" ||
-
-        row["POD"]===pod;
-
-        return (
-
-            matchSearch
+            (
+                pi.includes(search) ||
+                model.includes(search) ||
+                fac.includes(search)
+            )
 
             &&
 
-            matchFactory
+            (
+                factory==="" ||
+                row["FACTORY"]===factory
+            )
 
             &&
 
-            matchPOD
+            (
+                pod==="" ||
+                row["POD"]===pod
+            )
 
         );
 
@@ -510,13 +467,19 @@ const search = (
 
 function resetFilters(){
 
-    document.getElementById("search").value="";
+    if(document.getElementById("search"))
+        document.getElementById("search").value="";
 
-    document.getElementById("factoryFilter").value="";
+    if(document.getElementById("mobileSearch"))
+        document.getElementById("mobileSearch").value="";
 
-    document.getElementById("podFilter").value="";
+    if(document.getElementById("factoryFilter"))
+        document.getElementById("factoryFilter").value="";
 
-    filteredData=[...shipments];
+    if(document.getElementById("podFilter"))
+        document.getElementById("podFilter").value="";
+
+    filteredData = [...shipments];
 
     renderDashboard(filteredData);
 
@@ -531,7 +494,6 @@ function resetFilters(){
 function sortTable(column){
 
     sortDirection[column] =
-
     !sortDirection[column];
 
     const asc = sortDirection[column];
@@ -539,64 +501,45 @@ function sortTable(column){
     filteredData.sort((a,b)=>{
 
         let valueA = a[column];
-
         let valueB = b[column];
 
         if(column==="ETA"){
 
             valueA = new Date(valueA);
-
             valueB = new Date(valueB);
 
         }
 
         else if(
-
-            column==="ENTRY"
-
-            ||
-
-            column==="HQ"
-
-            ||
-
+            column==="ENTRY" ||
+            column==="HQ" ||
             column==="QTY"
-
         ){
 
-            valueA = Number(valueA);
-
-            valueB = Number(valueB);
+            valueA = Number(valueA||0);
+            valueB = Number(valueB||0);
 
         }
 
         else{
 
             valueA =
-
             (valueA||"")
-
             .toString()
-
             .toLowerCase();
 
             valueB =
-
             (valueB||"")
-
             .toString()
-
             .toLowerCase();
 
         }
 
-        if(valueA < valueB)
+        if(valueA<valueB)
+            return asc ? -1 : 1;
 
-        return asc ? -1 : 1;
-
-        if(valueA > valueB)
-
-        return asc ? 1 : -1;
+        if(valueA>valueB)
+            return asc ? 1 : -1;
 
         return 0;
 
@@ -604,7 +547,8 @@ function sortTable(column){
 
     renderDashboard(filteredData);
 
-}// ======================================================
+}
+// ======================================================
 // FACTORY CHART
 // ======================================================
 
@@ -1296,21 +1240,26 @@ window.addEventListener("resize",()=>{
 function showPage(pageId, button){
 
     // إخفاء جميع الصفحات
-    document.querySelectorAll("section.page").forEach(page=>{
+    document.querySelectorAll("section").forEach(page=>{
         page.style.display = "none";
     });
 
     // إظهار الصفحة المطلوبة
     document.getElementById(pageId).style.display = "block";
 
-    // إزالة active من جميع الأزرار
+    // إزالة active
     document.querySelectorAll(".menu-btn").forEach(btn=>{
         btn.classList.remove("active");
     });
 
-    // تفعيل الزر الحالي
+    // تفعيل الزر
     if(button){
         button.classList.add("active");
+    }
+
+    // عند فتح صفحة Purchase Orders
+    if(pageId === "purchasePage"){
+        buildPurchaseOrders();
     }
 
 }
@@ -1323,33 +1272,238 @@ document.addEventListener("DOMContentLoaded",()=>{
     loadData();
 
 });// ======================================================
-// BUILD PURCHASE ORDERS
+// PURCHASE ORDERS
 // ======================================================
 
 function buildPurchaseOrders(){
 
-    purchaseOrders = [];
+    const container =
+    document.getElementById("purchaseCards");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    if(!purchaseOrders.length){
+
+        container.innerHTML = `
+            <div class="card">
+                <h3>No Purchase Orders Found</h3>
+            </div>
+        `;
+
+        return;
+    }
+
+    let totalQty = 0;
+    let totalShipped = 0;
+    let totalRemaining = 0;
 
     const groups = {};
 
-    shipments.forEach(row=>{
+    purchaseOrders.forEach(row=>{
 
-        const pi = row["P I"];
-
-        if(!pi) return;
+        const pi = row["OrderID / PI NO"];
 
         if(!groups[pi]){
 
-            groups[pi] = [];
+            groups[pi]=[];
 
         }
 
         groups[pi].push(row);
 
+        totalQty += Number(row["TOTAL QTY"]||0);
+        totalShipped += Number(row["SHIPPED"]||0);
+        totalRemaining += Number(row["REMAINING"]||0);
+
     });
 
-    purchaseOrders = Object.values(groups);
+    document.getElementById("poCount").innerText =
+        Object.keys(groups).length.toLocaleString();
 
-    console.log(purchaseOrders);
+    document.getElementById("poQty").innerText =
+        totalQty.toLocaleString();
+
+    document.getElementById("supplierCount").innerText =
+        new Set(
+            purchaseOrders.map(r=>r.Supplier)
+        ).size;
+
+    const percent =
+        Math.round(
+            (totalShipped/totalQty)*100
+        );
+
+    document.getElementById("completedPO").innerText =
+        percent + "%";    Object.keys(groups).forEach(pi=>{
+
+        const rows = groups[pi];
+
+        const supplier =
+            rows[0]["Supplier"] || "-";
+
+        const qty =
+            rows.reduce((a,b)=>
+                a+Number(b["TOTAL QTY"]||0),0);
+
+        const shipped =
+            rows.reduce((a,b)=>
+                a+Number(b["SHIPPED"]||0),0);
+
+        const remaining =
+            rows.reduce((a,b)=>
+                a+Number(b["REMAINING"]||0),0);
+
+        const percent =
+            qty
+            ?
+            Math.round((shipped/qty)*100)
+            :
+            0;
+
+        let modelsHTML = "";
+
+        rows.forEach(r=>{
+
+            let color="#f44336";
+
+            if(r.STATUS=="done")
+                color="#2ecc71";
+
+            else if(r.STATUS=="done partial")
+                color="#f39c12";
+
+            modelsHTML += `
+
+            <tr>
+
+                <td>${r.MODELS}</td>
+
+                <td>${Number(r["TOTAL QTY"]).toLocaleString()}</td>
+
+                <td>${Number(r.SHIPPED).toLocaleString()}</td>
+
+                <td>${Number(r.REMAINING).toLocaleString()}</td>
+
+                <td>
+
+                    <span
+                    style="
+                    color:white;
+                    background:${color};
+                    padding:4px 10px;
+                    border-radius:20px;
+                    font-size:12px;">
+
+                    ${r.STATUS}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+        container.innerHTML += `
+
+        <div class="purchase-card">
+
+            <h2>📦 ${pi}</h2>
+
+            <p>
+
+                <b>Supplier:</b>
+
+                ${supplier}
+
+            </p>
+
+            <div class="progress">
+
+                <div
+                class="progress-fill"
+                style="width:${percent}%">
+
+                </div>
+
+            </div>
+
+            <div class="progress-text">
+
+                ${percent}% Completed
+
+            </div>
+
+            <div class="po-summary">
+
+                <div>
+
+                    <strong>Total</strong>
+
+                    <br>
+
+                    ${qty.toLocaleString()}
+
+                </div>
+
+                <div>
+
+                    <strong>Shipped</strong>
+
+                    <br>
+
+                    ${shipped.toLocaleString()}
+
+                </div>
+
+                <div>
+
+                    <strong>Remaining</strong>
+
+                    <br>
+
+                    ${remaining.toLocaleString()}
+
+                </div>
+
+            </div>
+
+            <table class="po-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Model</th>
+
+                        <th>Total</th>
+
+                        <th>Shipped</th>
+
+                        <th>Remaining</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${modelsHTML}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        `;
+
+    });
 
 }
