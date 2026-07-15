@@ -139,93 +139,6 @@
 
 </div>
 
-
-<!-- =====================================================
-     FILTERS
-====================================================== -->
-
-<div class="filter">
-
-    <input
-        id="search"
-        type="text"
-        placeholder="🔍 Search PI / Factory / Model..."
-        onkeyup="applyFilters()">
-
-    <select
-        id="factoryFilter"
-        onchange="applyFilters()">
-
-        <option value="">
-            All Factories
-        </option>
-
-    </select>
-
-    <select
-        id="podFilter"
-        onchange="applyFilters()">
-
-        <option value="">
-            All POD
-        </option>
-
-    </select>
-
-    <button onclick="resetFilters()">
-
-        Reset
-
-    </button>
-
-</div>
-
-
-<!-- =====================================================
-     TABLE
-====================================================== -->
-
-<div class="table-container">
-
-    <table>
-
-        <thead>
-
-            <tr>
-
-                <th>#</th>
-
-                <th onclick="sortTable('P I')">PI</th>
-
-                <th onclick="sortTable('C/I No')">C/I No</th>
-
-                <th onclick="sortTable('FACTORY')">FACTORY</th>
-
-                <th onclick="sortTable('ENTRY')">ENTRY</th>
-
-                <th onclick="sortTable('HQ')">HQ</th>
-
-                <th onclick="sortTable('POD')">POD</th>
-
-                <th onclick="sortTable('MODEL')">MODEL</th>
-
-                <th onclick="sortTable('QTY')">QTY</th>
-
-                <th onclick="sortTable('ETA')">ETA</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="shipmentTable">
-
-        </tbody>
-
-    </table>
-
-</div>
-
-
 <!-- =====================================================
      MOBILE VIEW
 ====================================================== -->
@@ -251,31 +164,86 @@
 </section><!-- =====================================================
      SHIPMENTS PAGE
 ====================================================== -->
-
 <section id="shipmentsPage" class="page" style="display:none;">
 
     <div class="page-header">
 
         <h1>🚢 Shipments</h1>
 
-        <p>
-
-            Shipment Management & Tracking
-
-        </p>
+        <p>Shipment Management & Tracking</p>
 
     </div>
 
-    <div class="coming-soon">
+    <!-- FILTER -->
 
-        <h2>Coming Soon...</h2>
+    <div class="filter">
+
+        <input
+            id="search"
+            type="text"
+            placeholder="🔍 Search PI / Factory / Model..."
+            onkeyup="applyFilters()">
+
+        <select
+            id="factoryFilter"
+            onchange="applyFilters()">
+
+            <option value="">
+                All Factories
+            </option>
+
+        </select>
+
+        <select
+            id="podFilter"
+            onchange="applyFilters()">
+
+            <option value="">
+                All POD
+            </option>
+
+        </select>
+
+        <button onclick="resetFilters()">
+
+            Reset
+
+        </button>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th onclick="sortTable('P I')">PI</th>
+                    <th onclick="sortTable('C/I No')">C/I No</th>
+                    <th onclick="sortTable('FACTORY')">FACTORY</th>
+                    <th onclick="sortTable('ENTRY')">ENTRY</th>
+                    <th onclick="sortTable('HQ')">HQ</th>
+                    <th onclick="sortTable('POD')">POD</th>
+                    <th onclick="sortTable('MODEL')">MODEL</th>
+                    <th onclick="sortTable('QTY')">QTY</th>
+                    <th onclick="sortTable('ETA')">ETA</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="shipmentTable"></tbody>
+
+        </table>
 
     </div>
 
 </section>
-
-
-
 <!-- =====================================================
      PURCHASE ORDERS PAGE
 ====================================================== -->
