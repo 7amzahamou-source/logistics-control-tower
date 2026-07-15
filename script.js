@@ -331,28 +331,40 @@ const totalFactories =
     ).size;
 
 // Top Factory
-const factoryHQ = {};
-
-shipments.forEach(row => {
-
-    const factory = row["FACTORY"] || "Unknown";
-
-    factoryHQ[factory] =
-        (factoryHQ[factory] || 0)
-        + Number(row["HQ"] || 0);
-
-});
-
 const topFactory =
     Object.entries(factoryHQ)
         .sort((a,b)=>b[1]-a[1])[0];
-    document.getElementById("totalHQ").textContent =
-    totalHQ.toLocaleString();
 
-    document.getElementById("totalQty").textContent =
-    totalQty.toLocaleString();
-    document.getElementById("totalShipments").textContent =
-    totalShipments.toLocaleString();
+
+// HQ ETA This Month
+
+const today = new Date();
+
+const currentMonth = today.getMonth();
+const currentYear = today.getFullYear();
+
+const hqThisMonth = shipments.reduce((sum,row)=>{
+
+    if(!row["ETA"]) return sum;
+
+    const eta = new Date(row["ETA"]);
+
+    if(
+        eta.getMonth() === currentMonth &&
+        eta.getFullYear() === currentYear
+    ){
+
+        return sum + Number(row["HQ"] || 0);
+
+    }
+
+    return sum;
+
+},0);
+
+
+document.getElementById("totalHQ").textContent =
+    totalHQ.toLocaleString();
 
 document.getElementById("totalFactories").textContent =
     totalFactories;
@@ -361,7 +373,8 @@ document.getElementById("topFactory").textContent =
     topFactory
     ? `${topFactory[0]} (${topFactory[1]})`
     : "-";
-
+document.getElementById("hqThisMonth").textContent =
+    hqThisMonth.toLocaleString();
 }
 // ======================================================
 // LOAD FILTERS
