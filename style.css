@@ -45,11 +45,11 @@ header{
 
     display:flex;
 
-    justify-content:space-between;
-
-    gap:40px;
+    justify-content:center;
 
     align-items:center;
+
+    text-align:center;
 
 }
 
@@ -102,11 +102,13 @@ header{
 
     display:flex;
 
+    justify-content:center;
+
     flex-wrap:wrap;
 
-    gap:10px;
+    gap:12px;
 
-    align-items:center;
+    margin-top:25px;
 
 }
 
@@ -147,6 +149,23 @@ header{
     color:#123456;
 
     font-weight:bold;
+
+}
+header{
+
+    padding:25px 40px;
+
+}
+
+.header-title h1{
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    margin-bottom:5px;
 
 }/* =====================================================
    KPI
