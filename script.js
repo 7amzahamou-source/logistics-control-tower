@@ -329,7 +329,16 @@ const totalFactories =
     new Set(
         shipments.map(r => r["FACTORY"])
     ).size;
+const factoryHQ = {};
 
+shipments.forEach(row => {
+
+    const factory = row["FACTORY"] || "Unknown";
+
+    factoryHQ[factory] =
+        (factoryHQ[factory] || 0) + Number(row["HQ"] || 0);
+
+});
 // Top Factory
 const topFactory =
     Object.entries(factoryHQ)
@@ -365,7 +374,11 @@ const hqThisMonth = shipments.reduce((sum,row)=>{
 
 document.getElementById("totalHQ").textContent =
     totalHQ.toLocaleString();
+document.getElementById("totalShipments").textContent =
+    totalShipments.toLocaleString();
 
+document.getElementById("totalQty").textContent =
+    totalQty.toLocaleString();
 document.getElementById("totalFactories").textContent =
     totalFactories;
 
