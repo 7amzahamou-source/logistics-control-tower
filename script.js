@@ -620,103 +620,57 @@ function drawFactoryChart(data){
         const factory = row["FACTORY"] || "Unknown";
 
         result[factory] =
-
-        (result[factory] || 0)
-
-        +
-
-        Number(row["HQ"] || 0);
+            (result[factory] || 0) + Number(row["HQ"] || 0);
 
     });
 
-   const sorted =
+    const sorted = Object.entries(result)
+        .sort((a,b)=>b[1]-a[1])
+        .slice(0,4);
 
- Object.entries(result)
+    const labels = sorted.map(x=>x[0]);
+    const values = sorted.map(x=>x[1]);
 
- .sort((a,b)=>b[1]-a[1])
-
- .slice(0,4);
-
-    const labels =
-
-    sorted.map(x=>x[0]);
-
-    const values =
-
-    sorted.map(x=>x[1]);
-
-    if(factoryChart){
-
-        factoryChart.destroy();
-
-    }
+    if(factoryChart) factoryChart.destroy();
 
     factoryChart = new Chart(
-
         document.getElementById("factoryChart"),
-
         {
-
+            type:"bar",
             plugins:[ChartDataLabels],
 
-            type:"bar",
-
             data:{
-
-                labels:labels,
-
+                labels,
                 datasets:[{
-
-                    label:"HQ",
-
                     data:values,
-
-                    backgroundColor:"#111111",
-
+                    backgroundColor:"#123456",
+                    hoverBackgroundColor:"#1b75d0",
                     borderRadius:8,
-
                     borderSkipped:false
-
                 }]
-
             },
 
             options:{
 
                 responsive:true,
-
                 maintainAspectRatio:false,
-
                 indexAxis:"y",
 
                 plugins:{
 
                     legend:{
-
                         display:false
-
                     },
 
                     datalabels:{
-
-                        color:"#ffffff",
-
+                        color:"#fff",
                         anchor:"center",
-
                         align:"center",
-
                         font:{
-
-                            size:13,
-
+                            size:11,
                             weight:"bold"
-
                         },
-
-                        formatter:value=>
-
-                        value.toLocaleString()
-
+                        formatter:v=>v.toLocaleString()
                     }
 
                 },
@@ -724,29 +678,35 @@ function drawFactoryChart(data){
                 scales:{
 
                     x:{
-
                         beginAtZero:true,
 
                         ticks:{
-
-                            precision:0
-
+                            precision:0,
+                            color:"#666",
+                            font:{
+                                size:12,
+                                weight:"600"
+                            }
                         },
 
                         grid:{
-
-                            color:"#eeeeee"
-
+                            color:"#edf2f7"
                         }
 
                     },
 
                     y:{
 
+                        ticks:{
+                            color:"#444",
+                            font:{
+                                size:12,
+                                weight:"600"
+                            }
+                        },
+
                         grid:{
-
                             display:false
-
                         }
 
                     }
@@ -777,67 +737,54 @@ function drawETAChart(data){
 
         const date = new Date(row["ETA"]);
 
-        const month =
+        if(isNaN(date)) return;
 
-        date.toLocaleString(
+        const key =
+            date.getFullYear() + "-" +
+            String(date.getMonth()+1).padStart(2,"0");
 
-            "en-US",
-
-            {
-
-                month:"short",
-
-                year:"numeric"
-
-            }
-
-        );
-
-        result[month] =
-
-        (result[month] || 0)
-
-        +
-
-        Number(row["HQ"] || 0);
+        result[key] =
+            (result[key] || 0) + Number(row["HQ"] || 0);
 
     });
 
-    const labels =
+    const sortedKeys = Object.keys(result).sort();
 
-    Object.keys(result);
+    const labels = sortedKeys.map(key=>{
 
-    const values =
+        const [year,month] = key.split("-");
 
-    Object.values(result);
+        return new Date(year,month-1)
+            .toLocaleString("en-US",{
+                month:"short",
+                year:"numeric"
+            });
 
-    if(etaChart){
+    });
 
-        etaChart.destroy();
+    const values = sortedKeys.map(key=>result[key]);
 
-    }
+    if(etaChart) etaChart.destroy();
 
     etaChart = new Chart(
-
         document.getElementById("etaChart"),
-
         {
-
-            plugins:[ChartDataLabels],
 
             type:"bar",
 
+            plugins:[ChartDataLabels],
+
             data:{
 
-                labels:labels,
+                labels,
 
                 datasets:[{
 
-                    label:"HQ",
-
                     data:values,
 
-                    backgroundColor:"#111111",
+                    backgroundColor:"#123456",
+
+                    hoverBackgroundColor:"#1b75d0",
 
                     borderRadius:8,
 
@@ -856,30 +803,23 @@ function drawETAChart(data){
                 plugins:{
 
                     legend:{
-
                         display:false
-
                     },
 
                     datalabels:{
 
-                        color:"#ffffff",
+                        color:"#fff",
 
                         anchor:"center",
 
                         align:"center",
 
                         font:{
-
-                            size:12,
-
+                            size:11,
                             weight:"bold"
-
                         },
 
-                        formatter:value=>
-
-                        value.toLocaleString()
+                        formatter:v=>v.toLocaleString()
 
                     }
 
@@ -889,10 +829,16 @@ function drawETAChart(data){
 
                     x:{
 
+                        ticks:{
+                            color:"#444",
+                            font:{
+                                size:12,
+                                weight:"600"
+                            }
+                        },
+
                         grid:{
-
                             display:false
-
                         }
 
                     },
@@ -902,15 +848,16 @@ function drawETAChart(data){
                         beginAtZero:true,
 
                         ticks:{
-
-                            precision:0
-
+                            precision:0,
+                            color:"#666",
+                            font:{
+                                size:12,
+                                weight:"600"
+                            }
                         },
 
                         grid:{
-
-                            color:"#eeeeee"
-
+                            color:"#edf2f7"
                         }
 
                     }
@@ -924,8 +871,6 @@ function drawETAChart(data){
     );
 
 }
-
-
 // ======================================================
 // TOGGLE INVOICE
 // ======================================================
