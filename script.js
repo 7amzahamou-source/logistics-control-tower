@@ -284,15 +284,7 @@ function fillMobileCards(data){
 
             </div>
 
-            <button
 
-                class="details-btn"
-
-                onclick="openShipment('${row["P I"]}')">
-
-                View Details
-
-            </button>
 
         </div>
 
@@ -865,163 +857,7 @@ function drawETAChart(data){
 
     );
 
-}// ======================================================
-// OPEN SHIPMENT
-// ======================================================
-
-function openShipment(pi){
-
-    const panel =
-    document.getElementById("sidePanel");
-
-    const content =
-    document.getElementById("panelContent");
-
-    const rows =
-    shipments.filter(r=>r["P I"]===pi);
-
-    if(rows.length===0){
-
-        content.innerHTML="<h3>No Data Found</h3>";
-
-        panel.classList.add("open");
-
-        return;
-
-    }
-
-    const first = rows[0];
-
-    const totalHQ = rows.reduce(
-
-        (sum,row)=>sum + Number(row["HQ"]||0)
-
-    ,0);
-
-    const totalQty = rows.reduce(
-
-        (sum,row)=>sum + Number(row["QTY"]||0)
-
-    ,0);
-
-    const invoices =
-
-    [...new Set(
-
-        rows.map(r=>r["C/I No"])
-
-    )];
-
-    let html = `
-
-    <h2>${pi}</h2>
-
-    <hr>
-
-    <table style="width:100%;margin-bottom:20px;">
-
-        <tr>
-
-            <td><b>Factory</b></td>
-
-            <td>${first["FACTORY"]||""}</td>
-
-        </tr>
-
-        <tr>
-
-            <td><b>POD</b></td>
-
-            <td>${first["POD"]||""}</td>
-
-        </tr>
-
-        <tr>
-
-            <td><b>ETA</b></td>
-
-            <td>${formatDate(first["ETA"])}</td>
-
-        </tr>
-
-        <tr>
-
-            <td><b>Total HQ</b></td>
-
-            <td>${totalHQ}</td>
-
-        </tr>
-
-        <tr>
-
-            <td><b>Total Qty</b></td>
-
-            <td>${totalQty.toLocaleString()}</td>
-
-        </tr>
-
-    </table>
-
-    <h3 style="margin-bottom:15px;">
-
-        📄 Invoices
-
-    </h3>
-
-    `;
-
-    invoices.forEach(invoice=>{
-
-        const id =
-
-        invoice
-
-        .replace(/[^a-zA-Z0-9]/g,"");
-
-        html += `
-
-        <div class="invoice-box">
-
-            <div
-
-                style="cursor:pointer;font-weight:bold;"
-
-                onclick="toggleInvoice('${pi}','${invoice}','${id}')">
-
-                📄 ${invoice}
-
-            </div>
-
-            <div id="${id}"></div>
-
-        </div>
-
-        `;
-
-    });
-
-    content.innerHTML = html;
-
-    panel.classList.add("open");
-
 }
-
-
-
-// ======================================================
-// CLOSE PANEL
-// ======================================================
-
-function closePanel(){
-
-    document
-
-    .getElementById("sidePanel")
-
-    .classList.remove("open");
-
-}
-
 
 
 // ======================================================
@@ -1168,44 +1004,6 @@ function formatDate(value){
 // Uncomment if you want automatic refresh every minute
 
 // setInterval(loadData,60000);
-
-
-
-// ======================================================
-// CLOSE PANEL WHEN CLICKING OUTSIDE
-// ======================================================
-
-window.addEventListener("click",function(e){
-
-    const panel =
-
-    document.getElementById("sidePanel");
-
-    if(!panel) return;
-
-    if(
-
-        panel.classList.contains("open")
-
-        &&
-
-        !panel.contains(e.target)
-
-        &&
-
-        !e.target.closest("a")
-
-        &&
-
-        !e.target.closest(".details-btn")
-
-    ){
-
-        closePanel();
-
-    }
-
-});
 
 
 
