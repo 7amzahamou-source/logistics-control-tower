@@ -653,6 +653,7 @@ function drawFactoryChart(data){
 
                 responsive:true,
                 maintainAspectRatio:false,
+                indexAxis:"y",
 
                 plugins:{
 
