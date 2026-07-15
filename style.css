@@ -774,7 +774,6 @@ th{
 
 }
 
-.menu-btn,
 /* =====================================================
    PURCHASE ORDERS PAGE
 ===================================================== */
@@ -1142,7 +1141,58 @@ th{
     color:#666;
 
 }
+/* =====================================================
+   DASHBOARD KPI
+===================================================== */
 
+.cards{
+
+    width:95%;
+    max-width:1600px;
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.card h3{
+
+    color:#666;
+
+    font-size:16px;
+
+    margin-bottom:12px;
+
+}
+
+.card h2{
+
+    color:#123456;
+
+    font-size:42px;
+
+    margin:0;
+
+}
 /* ===========================
    SUMMARY
 =========================== */
