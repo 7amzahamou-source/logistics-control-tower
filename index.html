@@ -25,46 +25,64 @@
 
     <div class="header-grid">
 
-        <!-- ================= LEFT MENU ================= -->
+    <div class="header-title">
 
-        <div class="top-menu">
+        <h1>📊 Logistics Control Tower</h1>
 
-            <button class="menu-btn active"
-                onclick="showPage('dashboardPage',this)">
-                🏠 Dashboard
-            </button>
+        <p class="subtitle">
 
-            <button class="menu-btn"
-                onclick="showPage('shipmentsPage',this)">
-                🚢 Shipments
-            </button>
+            Real-Time Shipment Monitoring & Analytics
 
-            <button class="menu-btn"
-                onclick="showPage('purchasePage',this)">
-                📦 Purchase Orders
-            </button>
+        </p>
 
-            <button class="menu-btn"
-                onclick="showPage('invoicePage',this)">
-                📄 Invoices
-            </button>
+        <p class="powered">
 
-            <button class="menu-btn"
-                onclick="showPage('containerPage',this)">
-                📦 Containers
-            </button>
+            Designed & Developed by <strong>Hamza Hamou</strong>
 
-            <button class="menu-btn"
-                onclick="showPage('analyticsPage',this)">
-                📈 Analytics
-            </button>
+        </p>
 
-            <button class="menu-btn"
-                onclick="showPage('settingsPage',this)">
-                ⚙ Settings
-            </button>
+    </div>
 
-        </div>
+</div>
+
+<div class="top-menu">
+
+    <button class="menu-btn active"
+        onclick="showPage('dashboardPage',this)">
+        🏠 Dashboard
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('shipmentsPage',this)">
+        🚢 Shipments
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('purchasePage',this)">
+        📦 Purchase Orders
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('invoicePage',this)">
+        📄 Invoices
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('containerPage',this)">
+        📦 Containers
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('analyticsPage',this)">
+        📈 Analytics
+    </button>
+
+    <button class="menu-btn"
+        onclick="showPage('settingsPage',this)">
+        ⚙️ Settings
+    </button>
+
+</div>
 
         <!-- ================= TITLE ================= -->
 
@@ -98,7 +116,15 @@
 
     <div class="card">
 
-        <h3>Total HQ</h3>
+        <h3>🚢 Total Shipments</h3>
+
+        <h2 id="totalShipments">0</h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>📦 Total HQ</h3>
 
         <h2 id="totalHQ">0</h2>
 
@@ -106,9 +132,33 @@
 
     <div class="card">
 
-        <h3>Total Qty</h3>
+        <h3>📋 Total Qty</h3>
 
         <h2 id="totalQty">0</h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🏭 Factories</h3>
+
+        <h2 id="totalFactories">0</h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🏆 Top Factory</h3>
+
+        <h2 id="topFactory">-</h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>📅 HQ ETA This Month</h3>
+
+        <h2 id="hqThisMonth">0</h2>
 
     </div>
 
