@@ -1283,6 +1283,16 @@ th{
 
     font-weight:600;
 
-    text-decoration:none;
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.pi-number:hover{
+
+    color:#b81d3c;
+
+    text-decoration:underline;
 
 }
