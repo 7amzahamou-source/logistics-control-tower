@@ -626,7 +626,6 @@ function drawFactoryChart(data){
 
     const sorted = Object.entries(result)
         .sort((a,b)=>b[1]-a[1])
-        .slice(0,4);
 
     const labels = sorted.map(x=>x[0]);
     const values = sorted.map(x=>x[1]);
@@ -654,7 +653,6 @@ function drawFactoryChart(data){
 
                 responsive:true,
                 maintainAspectRatio:false,
-                indexAxis:"y",
 
                 plugins:{
 
