@@ -319,12 +319,48 @@ function updateKPIs(data){
         sum + Number(row["QTY"]||0)
 
     ,0);
+// ================================
+// Dashboard KPIs
+// ================================
 
+const totalShipments = shipments.length;
+
+const totalFactories =
+    new Set(
+        shipments.map(r => r["FACTORY"])
+    ).size;
+
+// Top Factory
+const factoryHQ = {};
+
+shipments.forEach(row => {
+
+    const factory = row["FACTORY"] || "Unknown";
+
+    factoryHQ[factory] =
+        (factoryHQ[factory] || 0)
+        + Number(row["HQ"] || 0);
+
+});
+
+const topFactory =
+    Object.entries(factoryHQ)
+        .sort((a,b)=>b[1]-a[1])[0];
     document.getElementById("totalHQ").textContent =
     totalHQ.toLocaleString();
 
     document.getElementById("totalQty").textContent =
     totalQty.toLocaleString();
+    document.getElementById("totalShipments").textContent =
+    totalShipments.toLocaleString();
+
+document.getElementById("totalFactories").textContent =
+    totalFactories;
+
+document.getElementById("topFactory").textContent =
+    topFactory
+    ? `${topFactory[0]} (${topFactory[1]})`
+    : "-";
 
 }
 // ======================================================
