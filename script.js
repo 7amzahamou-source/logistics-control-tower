@@ -133,9 +133,11 @@ function fillTable(data){
 
           <td>
 
-             <span class="pi-number">
+             <span
+                 class="pi-number"
+                 onclick="goToPO('${row["P I"] || ""}')">
 
-              ${row["P I"] || "-"}
+                 ${row["P I"] || "-"}
 
              </span>
 
@@ -1436,4 +1438,16 @@ function resetPurchaseOrders(){
     buildPurchaseOrders();
 
     console.log("Purchase Orders Reset");
+}// ======================================================
+// GO TO PURCHASE ORDER
+// ======================================================
+
+function goToPO(pi){
+
+    showPage("purchasePage");
+
+    document.getElementById("poSearch").value = pi;
+
+    filterPurchaseOrders();
+
 }
