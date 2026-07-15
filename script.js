@@ -629,11 +629,13 @@ function drawFactoryChart(data){
 
     });
 
-    const sorted =
+   const sorted =
 
-    Object.entries(result)
+ Object.entries(result)
 
-    .sort((a,b)=>b[1]-a[1]);
+ .sort((a,b)=>b[1]-a[1])
+
+ .slice(0,4);
 
     const labels =
 
