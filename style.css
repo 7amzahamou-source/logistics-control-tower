@@ -173,21 +173,18 @@ header{
 
 .cards{
 
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
 
-    justify-content:center;
+    gap:20px;
 
-    gap:25px;
-
-    flex-wrap:wrap;
-
-    margin:30px;
+    max-width:1600px;
+    margin:30px auto;
+    padding:0 20px;
 
 }
 
 .card{
-
-    width:260px;
 
     background:#fff;
 
@@ -230,7 +227,9 @@ header{
 
     gap:25px;
 
-    margin:30px;
+    max-width:1600px;
+    margin:30px auto;
+    padding:0 20px;
 
 }
 
