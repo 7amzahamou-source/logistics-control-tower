@@ -475,124 +475,6 @@ td:nth-child(10){
 
 
 /* =====================================================
-   SIDE PANEL
-===================================================== */
-
-.side-panel{
-
-    position:fixed;
-
-    top:0;
-
-    right:-500px;
-
-    width:480px;
-
-    height:100vh;
-
-    background:#fff;
-
-    box-shadow:-6px 0 20px rgba(0,0,0,.18);
-
-    transition:.35s;
-
-    z-index:9999;
-
-    overflow-y:auto;
-
-}
-
-.side-panel.open{
-
-    right:0;
-
-}
-
-.panel-header{
-
-    background:#123456;
-
-    color:#fff;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:20px;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:5;
-
-}
-
-.close-panel{
-
-    font-size:28px;
-
-    cursor:pointer;
-
-}
-
-#panelContent{
-
-    padding:20px;
-
-}
-
-
-/* =====================================================
-   PANEL TABLE
-===================================================== */
-
-#panelContent table{
-
-    width:100%;
-
-    margin-top:15px;
-
-    border-collapse:collapse;
-
-}
-
-#panelContent th{
-
-    background:#123456;
-
-    color:#fff;
-
-    padding:10px;
-
-}
-
-#panelContent td{
-
-    padding:10px;
-
-    color:#222 !important;
-
-    background:#fff;
-
-}
-
-#panelContent tr{
-
-    background:#fff;
-
-}
-
-#panelContent tr:hover{
-
-    background:#f7f9fc;
-
-}
-
-
-/* =====================================================
    INVOICE BOX
 ===================================================== */
 
@@ -724,35 +606,7 @@ td:nth-child(10){
 
 }
 
-.details-btn{
 
-    width:100%;
-
-    margin-top:15px;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#123456;
-
-    color:#fff;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-    font-size:15px;
-
-}
-
-.details-btn:hover{
-
-    background:#1b75d0;
-
-}
 
 
 /* =====================================================
@@ -867,7 +721,7 @@ td:nth-child(10){
 
 .invoice-box:hover{
 
-    background:#f5f7fa;
+    background:#656a71;
 
 }
 
@@ -900,11 +754,7 @@ th{
 }
 
 .menu-btn,
-.details-btn{
-
-    user-select:none;
-
-}/* =====================================================
+/* =====================================================
    PURCHASE ORDERS PAGE
 ===================================================== */
 
