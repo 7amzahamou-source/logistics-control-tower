@@ -105,48 +105,39 @@ function renderContainerTable(){
 
     if(!tbody) return;
 
-    tbody.innerHTML = "";
+    let html = "";
 
     filteredContainers.forEach((row,index)=>{
 
-        tbody.innerHTML += `
-
+        html += `
         <tr>
 
-            <td>${index+1}</td>
-
+            <td>${index + 1}</td>
             <td>${row["ENTRY"] || "-"}</td>
-
             <td>${formatDate(row["ETA"])}</td>
-
             <td>${row["POD"] || "-"}</td>
-
             <td>${row["S/N"] || "-"}</td>
-
             <td>${row["CONTAINER No"] || "-"}</td>
-
             <td>${Number(row["QTY"] || 0).toLocaleString()}</td>
-
             <td>${row["الى مستودع"] || "-"}</td>
-
             <td>${row["حالة الحاوية"] || "-"}</td>
 
             <td>
-
-                <button class="details-btn"
-                    onclick="openContainer('${row["CONTAINER No"]}')">
-
+                <button
+                    class="details-btn"
+                    onclick="openContainer('${row["CONTAINER No"] || ""}')">
                     👁 View
-
                 </button>
-
             </td>
 
         </tr>
-
         `;
 
     });
+
+    tbody.innerHTML = html;
+
+    console.log("5");
 
 }
 
