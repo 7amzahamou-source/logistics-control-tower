@@ -126,7 +126,7 @@ function renderDashboard(data){
     // CONTAINERS
     // ==========================
 
-    loadContainers(containers);
+    // loadContainers(containers);
 
 }
 // ======================================================
