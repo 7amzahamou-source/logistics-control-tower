@@ -9,9 +9,8 @@
 
     <title>Logistics Control Tower</title>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
     <link rel="stylesheet" href="style.css">
+    
 
 </head>
 
@@ -442,24 +441,112 @@
 
         <h1>📦 Containers</h1>
 
-        <p>
-
-            Container Tracking
-
-        </p>
+        <p>Container Tracking & Warehouse Distribution</p>
 
     </div>
 
-    <div class="coming-soon">
+    <!-- KPI -->
 
-        <h2>Coming Soon...</h2>
+    <div class="cards">
+
+        <div class="card">
+            <h3>📦 Total Containers</h3>
+            <h2 id="containerCount">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>🚢 On Sea</h3>
+            <h2 id="containerSea">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>🏢 In Warehouse</h3>
+            <h2 id="containerWarehouse">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>🚛 Distributed</h3>
+            <h2 id="containerDistributed">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>⏳ Waiting Distribution</h3>
+            <h2 id="containerWaiting">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>📅 ETA This Month</h3>
+            <h2 id="containerETA">0</h2>
+        </div>
+
+    </div>
+
+    <!-- FILTER -->
+
+    <div class="filter">
+
+        <input
+            id="containerSearch"
+            type="text"
+            placeholder="🔍 Search Container / Entry / Model..."
+            onkeyup="filterContainers()">
+
+        <select
+            id="containerStatus"
+            onchange="filterContainers()">
+
+            <option value="">All Status</option>
+
+        </select>
+
+        <select
+            id="warehouseFilter"
+            onchange="filterContainers()">
+
+            <option value="">All Warehouses</option>
+
+        </select>
+
+        <button onclick="resetContainers()">
+
+            Reset
+
+        </button>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th>ENTRY</th>
+                    <th>ETA</th>
+                    <th>POD</th>
+                    <th>S/N</th>
+                    <th>CONTAINER</th>
+                    <th>QTY</th>
+                    <th>WAREHOUSE</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="containerTable"></tbody>
+
+        </table>
 
     </div>
 
 </section>
-
-
-
 <!-- =====================================================
      ANALYTICS PAGE
 ====================================================== -->
@@ -524,6 +611,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<!-- =====================================================
+     PAGE SCRIPTS
+====================================================== -->
+
+<script src="js/containers.js"></script>
 
 <!-- =====================================================
      MAIN SCRIPT
