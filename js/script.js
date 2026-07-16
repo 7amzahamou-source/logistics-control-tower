@@ -20,8 +20,9 @@ const API_URL =
 let shipments = [];
 let purchaseOrders = [];
 let containers = [];
-let filteredPurchaseOrders = [];
+
 let filteredData = [];
+let filteredPurchaseOrders = [];
 
 let factoryChart = null;
 let etaChart = null;
@@ -71,22 +72,22 @@ async function loadData(){
             ? data.CONTAINERS
             : [];
 
-        filteredPurchaseOrders = [...purchaseOrders];
         filteredData = [...shipments];
+        filteredPurchaseOrders = [...purchaseOrders];
 
-        console.log("First Shipment:", shipments[0]);
-        console.log("Total Shipments:", shipments.length);
-
+        console.log("Shipments:", shipments.length);
         console.log("Purchase Orders:", purchaseOrders.length);
-        console.log("API DATA:", data);
         console.log("Containers:", containers.length);
-        console.log("First Container:", containers[0]);
 
+        // Dashboard
         loadFilters();
-
         renderDashboard(filteredData);
 
+        // Purchase Orders
         buildPurchaseOrders();
+
+        // Containers
+        loadContainers(containers);
 
     }
 
@@ -121,12 +122,6 @@ function renderDashboard(data){
     drawFactoryChart(data);
 
     drawETAChart(data);
-
-    // ==========================
-    // CONTAINERS
-    // ==========================
-
-    // loadContainers(containers);
 
 }
 // ======================================================
