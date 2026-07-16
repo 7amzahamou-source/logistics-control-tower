@@ -15,10 +15,11 @@ function loadContainers(data){
     filteredContainers = [...data];
 
     updateContainerKPIs();
-    loadContainerFilters();
     renderContainerTable();
 
-}// ======================================================
+}
+
+// ======================================================
 // CONTAINER KPIs
 // ======================================================
 
@@ -26,39 +27,31 @@ function updateContainerKPIs(){
 
     const totalContainers = containerData.length;
 
-    const onSea = containerData.filter(row=>{
+    const onSea = containerData.filter(row => {
 
-        const status = String(
-            row["حالة الحاوية"] || ""
-        ).trim();
-
-        return status === "";
+        return String(row["حالة الحاوية"] || "").trim() === "";
 
     }).length;
 
-    const warehouse = containerData.filter(row=>{
+    const warehouse = containerData.filter(row => {
 
-        return (row["الى مستودع"] || "").trim() !== "";
-
-    }).length;
-
-    const distributed = containerData.filter(row=>{
-
-        return String(
-            row["التوزيع الى مستودع"] || ""
-        ).includes("تم");
+        return String(row["الى مستودع"] || "").trim() !== "";
 
     }).length;
 
-    const waiting = containerData.filter(row=>{
+    const distributed = containerData.filter(row => {
 
-        return String(
-            row["التوزيع الى مستودع"] || ""
-        ).includes("لم");
+        return String(row["التوزيع الى مستودع"] || "")
+            .includes("تم");
 
     }).length;
 
-    // ETA This Month
+    const waiting = containerData.filter(row => {
+
+        return String(row["التوزيع الى مستودع"] || "")
+            .includes("لم");
+
+    }).length;
 
     const today = new Date();
 
@@ -66,7 +59,7 @@ function updateContainerKPIs(){
 
     const currentYear = today.getFullYear();
 
-    const etaThisMonth = containerData.filter(row=>{
+    const etaThisMonth = containerData.filter(row => {
 
         if(!row["ETA"]) return false;
 
@@ -97,14 +90,15 @@ function updateContainerKPIs(){
     document.getElementById("containerETA").textContent =
         etaThisMonth.toLocaleString();
 
-}// ======================================================
+}
+
+// ======================================================
 // RENDER CONTAINER TABLE
 // ======================================================
 
 function renderContainerTable(){
 
-    const table =
-    document.getElementById("containerTable");
+    const table = document.getElementById("containerTable");
 
     if(!table) return;
 
@@ -116,11 +110,11 @@ function renderContainerTable(){
 
         <tr>
 
-            <td>${index+1}</td>
+            <td>${index + 1}</td>
 
             <td>${row["ENTRY"] || "-"}</td>
 
-            <td>${formatDate(row["ETA"])}</td>
+            <td>${row["ETA"] || "-"}</td>
 
             <td>${row["POD"] || "-"}</td>
 
@@ -152,12 +146,14 @@ function renderContainerTable(){
 
     });
 
-}// ======================================================
+}
+
+// ======================================================
 // OPEN CONTAINER
 // ======================================================
 
 function openContainer(containerNo){
 
-    alert(containerNo);
+    alert("Container No : " + containerNo);
 
 }
