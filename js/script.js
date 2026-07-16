@@ -19,6 +19,7 @@ const API_URL =
 
 let shipments = [];
 let purchaseOrders = [];
+let containers = [];
 let filteredPurchaseOrders = [];
 let filteredData = [];
 
@@ -46,25 +47,40 @@ async function loadData(){
 
         const data = await response.json();
 
-shipments = Array.isArray(data.SHIPPING1)
-    ? data.SHIPPING1
-    : [];
+        // ==========================
+        // SHIPPING
+        // ==========================
 
-purchaseOrders = Array.isArray(data.FOLLOW_UP)
-    ? data.FOLLOW_UP
-    : [];
+        shipments = Array.isArray(data.SHIPPING1)
+            ? data.SHIPPING1
+            : [];
 
-filteredPurchaseOrders = [...purchaseOrders];
+        // ==========================
+        // PURCHASE ORDERS
+        // ==========================
 
-console.log("First Shipment:", shipments[0]);
-console.log("Total Shipments:", shipments.length);
+        purchaseOrders = Array.isArray(data.FOLLOW_UP)
+            ? data.FOLLOW_UP
+            : [];
 
-filteredData = [...shipments];
+        // ==========================
+        // CONTAINERS
+        // ==========================
 
-        console.log("Shipments :", shipments.length);
-        console.log("Purchase Orders :", purchaseOrders.length);
-        console.log(purchaseOrders[0]);
-        console.log(Object.keys(purchaseOrders[0]));
+        containers = Array.isArray(data.CONTAINERS)
+            ? data.CONTAINERS
+            : [];
+
+        filteredPurchaseOrders = [...purchaseOrders];
+        filteredData = [...shipments];
+
+        console.log("First Shipment:", shipments[0]);
+        console.log("Total Shipments:", shipments.length);
+
+        console.log("Purchase Orders:", purchaseOrders.length);
+        console.log("API DATA:", data);
+        console.log("Containers:", containers.length);
+        console.log("First Container:", containers[0]);
 
         loadFilters();
 
@@ -83,7 +99,7 @@ filteredData = [...shipments];
     }
 
 }
-// ======================================================
+
 // ======================================================
 // RENDER DASHBOARD
 // ======================================================
@@ -107,15 +123,12 @@ function renderDashboard(data){
     drawETAChart(data);
 
     // ==========================
-    // Containers
+    // CONTAINERS
     // ==========================
 
-    loadContainers(data);
+    loadContainers(containers);
 
 }
-
-
-
 // ======================================================
 // DESKTOP TABLE
 // ======================================================
