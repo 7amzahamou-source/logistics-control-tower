@@ -1,15 +1,5 @@
-function loadContainers(data){
-
-    console.log("NEW CONTAINERS.JS");
-
-    containerData = [...data];
-    filteredContainers = [...data];
-
-    updateContainerKPIs();
-    renderContainerTable();
-
-}// ======================================================
-// CONTAINERS
+// ======================================================
+// CONTAINERS.JS
 // ======================================================
 
 let containerData = [];
@@ -21,10 +11,14 @@ let filteredContainers = [];
 
 function loadContainers(data){
 
-    containerData = [...data];
-    filteredContainers = [...data];
+    console.log("Loading Containers:", data);
+
+    containerData = Array.isArray(data) ? [...data] : [];
+
+    filteredContainers = [...containerData];
 
     updateContainerKPIs();
+
     renderContainerTable();
 
 }
@@ -37,26 +31,26 @@ function updateContainerKPIs(){
 
     const totalContainers = containerData.length;
 
-    const onSea = containerData.filter(row => {
+    const onSea = containerData.filter(row=>{
 
         return String(row["حالة الحاوية"] || "").trim() === "";
 
     }).length;
 
-    const warehouse = containerData.filter(row => {
+    const warehouse = containerData.filter(row=>{
 
         return String(row["الى مستودع"] || "").trim() !== "";
 
     }).length;
 
-    const distributed = containerData.filter(row => {
+    const distributed = containerData.filter(row=>{
 
         return String(row["التوزيع الى مستودع"] || "")
             .includes("تم");
 
     }).length;
 
-    const waiting = containerData.filter(row => {
+    const waiting = containerData.filter(row=>{
 
         return String(row["التوزيع الى مستودع"] || "")
             .includes("لم");
@@ -69,62 +63,54 @@ function updateContainerKPIs(){
 
     const currentYear = today.getFullYear();
 
-    const etaThisMonth = containerData.filter(row => {
+    const etaThisMonth = containerData.filter(row=>{
 
         if(!row["ETA"]) return false;
 
         const eta = new Date(row["ETA"]);
 
-        return (
-            eta.getMonth() === currentMonth &&
-            eta.getFullYear() === currentYear
-        );
+        return eta.getMonth() === currentMonth &&
+               eta.getFullYear() === currentYear;
 
     }).length;
 
-    document.getElementById("containerCount").textContent =
-        totalContainers.toLocaleString();
+    document.getElementById("containerCount").textContent = totalContainers.toLocaleString();
 
-    document.getElementById("containerSea").textContent =
-        onSea.toLocaleString();
+    document.getElementById("containerSea").textContent = onSea.toLocaleString();
 
-    document.getElementById("containerWarehouse").textContent =
-        warehouse.toLocaleString();
+    document.getElementById("containerWarehouse").textContent = warehouse.toLocaleString();
 
-    document.getElementById("containerDistributed").textContent =
-        distributed.toLocaleString();
+    document.getElementById("containerDistributed").textContent = distributed.toLocaleString();
 
-    document.getElementById("containerWaiting").textContent =
-        waiting.toLocaleString();
+    document.getElementById("containerWaiting").textContent = waiting.toLocaleString();
 
-    document.getElementById("containerETA").textContent =
-        etaThisMonth.toLocaleString();
+    document.getElementById("containerETA").textContent = etaThisMonth.toLocaleString();
 
 }
 
 // ======================================================
-// RENDER CONTAINER TABLE
+// TABLE
 // ======================================================
 
 function renderContainerTable(){
 
-    const table = document.getElementById("containerTable");
+    const tbody = document.getElementById("containerTable");
 
-    if(!table) return;
+    if(!tbody) return;
 
-    table.innerHTML = "";
+    tbody.innerHTML = "";
 
     filteredContainers.forEach((row,index)=>{
 
-        table.innerHTML += `
+        tbody.innerHTML += `
 
         <tr>
 
-            <td>${index + 1}</td>
+            <td>${index+1}</td>
 
             <td>${row["ENTRY"] || "-"}</td>
 
-            <td>${row["ETA"] || "-"}</td>
+            <td>${formatDate(row["ETA"])}</td>
 
             <td>${row["POD"] || "-"}</td>
 
@@ -140,8 +126,7 @@ function renderContainerTable(){
 
             <td>
 
-                <button
-                    class="details-btn"
+                <button class="details-btn"
                     onclick="openContainer('${row["CONTAINER No"]}')">
 
                     👁 View
@@ -159,11 +144,11 @@ function renderContainerTable(){
 }
 
 // ======================================================
-// OPEN CONTAINER
+// DETAILS
 // ======================================================
 
 function openContainer(containerNo){
 
-    alert("Container No : " + containerNo);
+    alert("Container : " + containerNo);
 
 }
