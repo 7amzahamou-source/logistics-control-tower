@@ -1,4 +1,14 @@
-// ======================================================
+function loadContainers(data){
+
+    console.log("NEW CONTAINERS.JS");
+
+    containerData = [...data];
+    filteredContainers = [...data];
+
+    updateContainerKPIs();
+    renderContainerTable();
+
+}// ======================================================
 // CONTAINERS
 // ======================================================
 
