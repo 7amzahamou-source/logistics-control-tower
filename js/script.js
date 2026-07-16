@@ -22,7 +22,6 @@ let containers = [];
 
 let filteredData = [];
 let filteredPurchaseOrders = [];
-let filteredContainers = [];
 
 
 
@@ -75,7 +74,6 @@ async function loadData(){
             ? data.CONTAINERS
             : [];
 
-        filteredContainers = [...containers];
 
         console.log("Shipments :", shipments.length);
         console.log("Purchase Orders :", purchaseOrders.length);
