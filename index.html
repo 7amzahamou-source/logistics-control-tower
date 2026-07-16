@@ -3,624 +3,414 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistics Control Tower</title>
 
-    <title>Logistics Control Tower</title>
+<link rel="icon" href="favicon.ico">
 
-    <link rel="stylesheet" href="style.css">
-    
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<!-- =====================================================
-     DASHBOARD PAGE
-====================================================== -->
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
 
-<section id="dashboardPage" class="page">
+<header class="header">
 
-<header>
+<div class="logo">
 
-    <div class="header-grid">
+<h1>
 
-    <div class="header-title">
+📊 Logistics Control Tower
 
-        <h1>📊 Logistics Control Tower</h1>
+</h1>
 
-        <p class="subtitle">
+<p>
 
-            Real-Time Shipment Monitoring & Analytics
+Real-Time Shipment Monitoring & Analytics
 
-        </p>
+</p>
 
-        <p class="powered">
+<span>
 
-            Designed & Developed by <strong>Hamza Hamou</strong>
+Designed & Developed by <b>Hamza Hamou</b>
 
-        </p>
-
-    </div>
+</span>
 
 </div>
 
-<div class="top-menu">
+<nav class="menu">
 
-    <button class="menu-btn active"
-        onclick="showPage('dashboardPage',this)">
-        🏠 Dashboard
-    </button>
+<button class="menu-btn active" onclick="showPage('dashboardPage')">
 
-    <button class="menu-btn"
-        onclick="showPage('shipmentsPage',this)">
-        🚢 Shipments
-    </button>
+🏠 Dashboard
 
-    <button class="menu-btn"
-        onclick="showPage('purchasePage',this)">
-        📦 Purchase Orders
-    </button>
+</button>
 
-    <button class="menu-btn"
-        onclick="showPage('invoicePage',this)">
-        📄 Invoices
-    </button>
+<button class="menu-btn" onclick="showPage('shipmentsPage')">
 
-    <button class="menu-btn"
-        onclick="showPage('containerPage',this)">
-        📦 Containers
-    </button>
+🚢 Shipments
 
-    <button class="menu-btn"
-        onclick="showPage('analyticsPage',this)">
-        📈 Analytics
-    </button>
+</button>
 
-    <button class="menu-btn"
-        onclick="showPage('settingsPage',this)">
-        ⚙️ Settings
-    </button>
+<button class="menu-btn" onclick="showPage('purchasePage')">
 
-</div>
+📦 Purchase Orders
 
+</button>
 
-</header><!-- =====================================================
-     KPI
-====================================================== -->
+<button class="menu-btn" onclick="showPage('containersPage')">
+
+📦 Containers
+
+</button>
+
+<button class="menu-btn" onclick="showPage('analyticsPage')">
+
+📈 Analytics
+
+</button>
+
+<button class="menu-btn" onclick="showPage('settingsPage')">
+
+⚙ Settings
+
+</button>
+
+</nav>
+
+</header>
+
+<!-- ========================================= -->
+<!-- DASHBOARD -->
+<!-- ========================================= -->
+
+<section id="dashboardPage" class="page active-page">
 
 <div class="cards">
 
-    <div class="card">
-
-        <h3>🚢 Total Shipments</h3>
-
-        <h2 id="totalShipments">0</h2>
-
-    </div>
-
-    <div class="card">
-
-        <h3>📦 Total HQ</h3>
-
-        <h2 id="totalHQ">0</h2>
-
-    </div>
-
-    <div class="card">
-
-        <h3>📋 Total Qty</h3>
-
-        <h2 id="totalQty">0</h2>
-
-    </div>
-
-    <div class="card">
-
-        <h3>🏭 Factories</h3>
-
-        <h2 id="totalFactories">0</h2>
-
-    </div>
-
-    <div class="card">
-
-        <h3>🏆 Top Factory</h3>
-
-        <h2 id="topFactory">-</h2>
-
-    </div>
-
-    <div class="card">
-
-        <h3>📅 HQ ETA This Month</h3>
-
-        <h2 id="hqThisMonth">0</h2>
-
-    </div>
-
+<div class="card">
+<h3>🚢 Total Shipments</h3>
+<h1 id="shipmentCount">0</h1>
 </div>
 
+<div class="card">
+<h3>📦 Total HQ</h3>
+<h1 id="hqCount">0</h1>
+</div>
 
-<!-- =====================================================
-     CHARTS
-====================================================== -->
+<div class="card">
+<h3>📋 Total Qty</h3>
+<h1 id="qtyCount">0</h1>
+</div>
+
+<div class="card">
+<h3>🏭 Factories</h3>
+<h1 id="factoryCount">0</h1>
+</div>
+
+<div class="card">
+<h3>🏆 Top Factory</h3>
+<h1 id="topFactory">-</h1>
+</div>
+
+<div class="card">
+<h3>🗓 HQ ETA This Month</h3>
+<h1 id="etaHQ">0</h1>
+</div>
+
+</div>
 
 <div class="charts">
 
-    <div class="chart-card">
+<div class="chart-card">
 
-        <h3>📦 Total HQ by Factory</h3>
+<h3>📦 Total HQ by Factory</h3>
 
-        <canvas id="factoryChart"></canvas>
-
-    </div>
-
-    <div class="chart-card">
-
-        <h3>🗓 Total HQ by ETA Month</h3>
-
-        <canvas id="etaChart"></canvas>
-
-    </div>
+<canvas id="factoryChart"></canvas>
 
 </div>
 
-<!-- =====================================================
-     MOBILE VIEW
-====================================================== -->
+<div class="chart-card">
 
-<div id="mobileCards">
+<h3>🗓 Total HQ by ETA Month</h3>
 
-    <div class="mobile-search">
-
-        <input
-            id="mobileSearch"
-            type="text"
-            placeholder="🔍 Search PI / Model / Factory..."
-            onkeyup="applyFilters()">
-
-    </div>
-
-    <div id="mobileCardsList">
-
-    </div>
+<canvas id="etaChart"></canvas>
 
 </div>
 
-</section><!-- =====================================================
-     SHIPMENTS PAGE
-====================================================== -->
-<section id="shipmentsPage" class="page" style="display:none;">
+</div>
 
-    <div class="page-header">
+</section><!-- ========================================= -->
+<!-- SHIPMENTS PAGE -->
+<!-- ========================================= -->
 
-        <h1>🚢 Shipments</h1>
+<section id="shipmentsPage" class="page">
 
-        <p>Shipment Management & Tracking</p>
+<div class="page-header">
 
-    </div>
+<h2>🚢 Shipments</h2>
 
-    <!-- FILTER -->
+<p>Shipment Tracking & Management</p>
 
-    <div class="filter">
+</div>
 
-        <input
-            id="search"
-            type="text"
-            placeholder="🔍 Search PI / Factory / Model..."
-            onkeyup="applyFilters()">
+<div class="table-card">
 
-        <select
-            id="factoryFilter"
-            onchange="applyFilters()">
+<table>
 
-            <option value="">
-                All Factories
-            </option>
+<thead>
 
-        </select>
+<tr>
 
-        <select
-            id="podFilter"
-            onchange="applyFilters()">
+<th>ENTRY</th>
+<th>FACTORY</th>
+<th>FORWARDER</th>
+<th>POL</th>
+<th>POD</th>
+<th>ETA</th>
+<th>HQ</th>
 
-            <option value="">
-                All POD
-            </option>
+</tr>
 
-        </select>
+</thead>
 
-        <button onclick="resetFilters()">
+<tbody id="shipmentTable">
 
-            Reset
+</tbody>
 
-        </button>
+</table>
 
-    </div>
-
-    <!-- TABLE -->
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>#</th>
-                    <th onclick="sortTable('P I')">PI</th>
-                    <th onclick="sortTable('C/I No')">C/I No</th>
-                    <th onclick="sortTable('FACTORY')">FACTORY</th>
-                    <th onclick="sortTable('ENTRY')">ENTRY</th>
-                    <th onclick="sortTable('HQ')">HQ</th>
-                    <th onclick="sortTable('POD')">POD</th>
-                    <th onclick="sortTable('MODEL')">MODEL</th>
-                    <th onclick="sortTable('QTY')">QTY</th>
-                    <th onclick="sortTable('ETA')">ETA</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="shipmentTable"></tbody>
-
-        </table>
-
-    </div>
+</div>
 
 </section>
-<!-- =====================================================
-     PURCHASE ORDERS PAGE
-====================================================== -->
 
-<section id="purchasePage" class="page" style="display:none;">
+<!-- ========================================= -->
+<!-- PURCHASE ORDERS PAGE -->
+<!-- ========================================= -->
 
-    <div class="page-header">
+<section id="purchasePage" class="page">
 
-        <div class="breadcrumb">
+<div class="page-header">
 
-            <a href="#" onclick="showPage('dashboardPage'); return false;">
+<h2>📦 Purchase Orders</h2>
 
-                🏠 Dashboard
+<p>Purchase Orders Monitoring</p>
 
-            </a>
+</div>
 
-            <span>›</span>
+<div class="table-card">
 
-            <span>Purchase Orders</span>
+<table>
 
-        </div>
+<thead>
 
-        <h1>📦 Purchase Orders</h1>
+<tr>
 
-        <p>
+<th>PO</th>
+<th>Supplier</th>
+<th>Models</th>
+<th>Qty</th>
+<th>Shipped</th>
+<th>Remaining</th>
+<th>Status</th>
 
-            Purchase Orders Tracking & Progress
+</tr>
 
-        </p>
+</thead>
 
-    </div>
+<tbody id="purchaseTable">
 
-    <!-- KPI -->
+</tbody>
 
-    <div class="po-cards">
+</table>
 
-        <div class="card">
-
-            <h3>Total POs</h3>
-
-            <h2 id="poCount">0</h2>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Total Qty</h3>
-
-            <h2 id="poQty">0</h2>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Suppliers</h3>
-
-            <h2 id="supplierCount">0</h2>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Completed</h3>
-
-            <h2 id="completedPO">0%</h2>
-
-        </div>
-
-    </div>
-    <!-- FILTER -->
-
-    <div class="filter">
-
-        <input
-
-            id="poSearch"
-
-            type="text"
-
-            placeholder="🔍 Search PI / Supplier / Model"
-            
-            onkeyup="filterPurchaseOrders()">
-
-        <select 
-             id="statusFilter"
-             onchange="filterPurchaseOrders()">
-            <option value="">
-
-                All Status
-
-            </option>
-
-            <option value="done">
-
-                Done
-
-            </option>
-
-            <option value="done partial">
-
-                Partial
-
-            </option>
-
-            <option value="not shipped any">
-
-                Not Shipped
-
-            </option>
-
-        </select>
-
-        <button type="button" onclick="resetPurchaseOrders()">
-
-            Reset
-
-        </button>
-
-    </div>
-
-
-    <!-- PURCHASE ORDER CARDS -->
-
-    <div id="purchaseCards">
-
-    </div>
+</div>
 
 </section>
 
+<!-- ========================================= -->
+<!-- CONTAINERS PAGE -->
+<!-- ========================================= -->
 
+<section id="containersPage" class="page">
 
-<!-- =====================================================
-     INVOICES PAGE
-====================================================== -->
+<div class="page-header">
 
-<section id="invoicePage" class="page" style="display:none;">
+<h2>📦 Containers</h2>
 
-    <div class="page-header">
+<p>Container Tracking & Warehouse Distribution</p>
 
-        <h1>📄 Invoices</h1>
+</div>
+<div class="filter">
 
-        <p>
+    <input
+        type="text"
+        id="containerSearch"
+        placeholder="🔍 Search Container..."
+        onkeyup="filterContainers()">
 
-            Invoice Tracking
+    <select
+        id="containerFactory"
+        onchange="filterContainers()">
 
-        </p>
+        <option value="">All Factories</option>
 
-    </div>
+    </select>
 
-    <div class="coming-soon">
+    <select
+        id="containerWarehouse"
+        onchange="filterContainers()">
 
-        <h2>Coming Soon...</h2>
+        <option value="">All Warehouses</option>
 
-    </div>
+    </select>
+
+    <select
+        id="containerStatus"
+        onchange="filterContainers()">
+
+        <option value="">All Status</option>
+
+    </select>
+
+    <button onclick="resetContainers()">
+
+        Reset
+
+    </button>
+
+</div>
+<div class="cards">
+
+<div class="card">
+<h3>📦 Total Containers</h3>
+<h1 id="containerCount">0</h1>
+</div>
+
+<div class="card">
+<h3>🚢 On Sea</h3>
+<h1 id="containerSea">0</h1>
+</div>
+
+<div class="card">
+<h3>🏭 In Warehouse</h3>
+<h1 id="containerWarehouse">0</h1>
+</div>
+
+<div class="card">
+<h3>🚚 Distributed</h3>
+<h1 id="containerDistributed">0</h1>
+</div>
+
+<div class="card">
+<h3>⏳ Waiting</h3>
+<h1 id="containerWaiting">0</h1>
+</div>
+
+<div class="card">
+<h3>📅 ETA This Month</h3>
+<h1 id="containerETA">0</h1>
+</div>
+
+</div>
+
+<div class="table-card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>ENTRY</th>
+<th>ETA</th>
+<th>POD</th>
+<th>S/N</th>
+<th>CONTAINER</th>
+<th>QTY</th>
+<th>WAREHOUSE</th>
+<th>STATUS</th>
+<th>ACTION</th>
+
+</tr>
+
+</thead>
+
+<tbody id="containerTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- ANALYTICS -->
+<!-- ========================================= -->
+
+<section id="analyticsPage" class="page">
+
+<div class="page-header">
+
+<h2>📈 Analytics</h2>
+
+<p>Coming Soon...</p>
+
+</div>
 
 </section>
 
+<!-- ========================================= -->
+<!-- SETTINGS -->
+<!-- ========================================= -->
 
+<section id="settingsPage" class="page">
 
-<!-- =====================================================
-     CONTAINERS PAGE
-====================================================== -->
+<div class="page-header">
 
-<section id="containerPage" class="page" style="display:none;">
+<h2>⚙ Settings</h2>
 
-    <div class="page-header">
+<p>Coming Soon...</p>
 
-        <h1>📦 Containers</h1>
-
-        <p>Container Tracking & Warehouse Distribution</p>
-
-    </div>
-
-    <!-- KPI -->
-
-    <div class="cards">
-
-        <div class="card">
-            <h3>📦 Total Containers</h3>
-            <h2 id="containerCount">0</h2>
-        </div>
-
-        <div class="card">
-            <h3>🚢 On Sea</h3>
-            <h2 id="containerSea">0</h2>
-        </div>
-
-        <div class="card">
-            <h3>🏢 In Warehouse</h3>
-            <h2 id="containerWarehouse">0</h2>
-        </div>
-
-        <div class="card">
-            <h3>🚛 Distributed</h3>
-            <h2 id="containerDistributed">0</h2>
-        </div>
-
-        <div class="card">
-            <h3>⏳ Waiting Distribution</h3>
-            <h2 id="containerWaiting">0</h2>
-        </div>
-
-        <div class="card">
-            <h3>📅 ETA This Month</h3>
-            <h2 id="containerETA">0</h2>
-        </div>
-
-    </div>
-
-    <!-- FILTER -->
-
-    <div class="filter">
-
-        <input
-            id="containerSearch"
-            type="text"
-            placeholder="🔍 Search Container / Entry / Model..."
-            onkeyup="filterContainers()">
-
-        <select
-            id="containerStatus"
-            onchange="filterContainers()">
-
-            <option value="">All Status</option>
-
-        </select>
-
-        <select
-            id="warehouseFilter"
-            onchange="filterContainers()">
-
-            <option value="">All Warehouses</option>
-
-        </select>
-
-        <button onclick="resetContainers()">
-
-            Reset
-
-        </button>
-
-    </div>
-
-    <!-- TABLE -->
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>#</th>
-                    <th>ENTRY</th>
-                    <th>ETA</th>
-                    <th>POD</th>
-                    <th>S/N</th>
-                    <th>CONTAINER</th>
-                    <th>QTY</th>
-                    <th>WAREHOUSE</th>
-                    <th>STATUS</th>
-                    <th>ACTION</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="containerTable"></tbody>
-
-        </table>
-
-    </div>
-
-</section>
-<!-- =====================================================
-     ANALYTICS PAGE
-====================================================== -->
-
-<section id="analyticsPage" class="page" style="display:none;">
-
-    <div class="page-header">
-
-        <h1>📈 Analytics</h1>
-
-        <p>
-
-            Shipment Analytics
-
-        </p>
-
-    </div>
-
-    <div class="coming-soon">
-
-        <h2>Coming Soon...</h2>
-
-    </div>
+</div>
 
 </section>
 
-
-
-<!-- =====================================================
-     SETTINGS PAGE
-====================================================== -->
-
-<section id="settingsPage" class="page" style="display:none;">
-
-    <div class="page-header">
-
-        <h1>⚙ Settings</h1>
-
-        <p>
-
-            System Settings
-
-        </p>
-
-    </div>
-
-    <div class="coming-soon">
-
-        <h2>Coming Soon...</h2>
-
-    </div>
-
-</section><!-- =====================================================
-     SIDE PANEL
-====================================================== -->
-
-<!-- =====================================================
-     JAVASCRIPT LIBRARIES
-====================================================== -->
+<!-- ========================================= -->
+<!-- JAVASCRIPT LIBRARIES -->
+<!-- ========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
-<!-- =====================================================
-     PAGE SCRIPTS
-====================================================== -->
+<!-- ========================================= -->
+<!-- PAGE SCRIPTS -->
+<!-- ========================================= -->
+
+<script src="js/charts.js"></script>
 
 <script src="js/containers.js"></script>
 
-<!-- =====================================================
-     MAIN SCRIPT
-====================================================== -->
+<!-- ========================================= -->
+<!-- MAIN SCRIPT -->
+<!-- ========================================= -->
 
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
