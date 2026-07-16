@@ -11,16 +11,23 @@ let filteredContainers = [];
 
 function loadContainers(data){
 
-    console.log("Loading Containers:", data);
+    console.log("1");
 
     containerData = Array.isArray(data) ? [...data] : [];
 
+    console.log("2");
+
     filteredContainers = [...containerData];
+
+    console.log("3");
 
     updateContainerKPIs();
 
+    console.log("4");
+
     renderContainerTable();
 
+    console.log("5");
 }
 
 // ======================================================
