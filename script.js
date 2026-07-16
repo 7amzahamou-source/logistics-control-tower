@@ -106,6 +106,12 @@ function renderDashboard(data){
 
     drawETAChart(data);
 
+    // ==========================
+    // Containers
+    // ==========================
+
+    loadContainers(data);
+
 }
 
 
