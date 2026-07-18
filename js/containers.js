@@ -1,172 +1,309 @@
 // ======================================================
-// CONTAINERS
+// Containers
 // ======================================================
 
-let containerData = [];
-let filteredContainers = [];
+function initializeContainers() {
 
-// ======================================================
-// LOAD
-// ======================================================
+    filteredContainers = [...containersData];
 
-function loadContainers(data){
-
-    containerData = Array.isArray(data)
-        ? [...data]
-        : [];
-
-    filteredContainers = [...containerData];
-
-    updateContainerKPIs();
+    loadContainerCards();
 
     loadContainerFilters();
 
-    renderContainerTable();
+    renderContainers(filteredContainers);
 
 }
 
 // ======================================================
-// KPIs
+// KPI Cards
 // ======================================================
 
-function updateContainerKPIs(){
+function loadContainerCards() {
 
+    // Total Containers
     document.getElementById("containerCount").textContent =
-        containerData.length.toLocaleString();
+        containersData.length;
 
-    const sea = containerData.filter(r=>
-
-        String(r["حالة الحاوية"] || "").trim()===""
-
-    ).length;
-
+    // On Sea
     document.getElementById("containerSea").textContent =
-        sea.toLocaleString();
+        containersData.filter(row =>
+            !row["تاريخ استلام فعلي"]
+        ).length;
 
-    const warehouse = containerData.filter(r=>
-
-        String(r["الى مستودع"] || "").trim()!== ""
-
-    ).length;
-
+    // In Warehouse
     document.getElementById("containerWarehouse").textContent =
-        warehouse.toLocaleString();
+        containersData.filter(row =>
+            row["تاريخ استلام فعلي"]
+        ).length;
 
-    const distributed = containerData.filter(r=>
-
-        String(r["التوزيع الى مستودع"] || "")
-        .includes("تم")
-
-    ).length;
-
+    // Distributed
     document.getElementById("containerDistributed").textContent =
-        distributed.toLocaleString();
+        containersData.filter(row =>
+            row["التوزيع الى مستودع"]
+        ).length;
 
-    const waiting = containerData.filter(r=>
-
-        String(r["التوزيع الى مستودع"] || "")
-        .includes("لم")
-
-    ).length;
-
+    // Waiting
     document.getElementById("containerWaiting").textContent =
-        waiting.toLocaleString();
+        containersData.filter(row =>
+            !row["التوزيع الى مستودع"]
+        ).length;
 
-    const today = new Date();
+    // ETA This Month
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
 
-    const month = today.getMonth();
+    let etaCount = 0;
 
-    const year = today.getFullYear();
+    containersData.forEach(row => {
 
-    const eta = containerData.filter(r=>{
+        const eta = new Date(row["ETA"]);
 
-        if(!r["ETA"]) return false;
+        if (
+            !isNaN(eta) &&
+            eta.getMonth() === currentMonth &&
+            eta.getFullYear() === currentYear
+        ) {
 
-        const d = new Date(r["ETA"]);
+            etaCount++;
 
-        return d.getMonth()==month &&
-               d.getFullYear()==year;
+        }
 
-    }).length;
+    });
 
     document.getElementById("containerETA").textContent =
-        eta.toLocaleString();
+        etaCount;
 
 }
 
 // ======================================================
-// FILTERS
+// Container Filters
 // ======================================================
 
-function loadContainerFilters(){
+function loadContainerFilters() {
 
     const factory =
-    document.getElementById("containerFactory");
+        document.getElementById("containerFactory");
 
     const warehouse =
-    document.getElementById("containerWarehouse");
+        document.getElementById("containerWarehouse");
 
     const status =
-    document.getElementById("containerStatus");
-
-    if(factory){
+        document.getElementById("containerStatus");
 
         factory.innerHTML =
-        '<option value="">All Factories</option>';
+    '<option value="">All Factories</option>';
 
-        [...new Set(containerData.map(r=>r["FACTORY"]))]
+warehouse.innerHTML =
+    '<option value="">All Warehouses</option>';
+
+status.innerHTML =
+    '<option value="">All Status</option>';
+
+    // Factory
+    [...new Set(containersData.map(row => row["Factory"]))]
 
         .filter(Boolean)
 
         .sort()
 
-        .forEach(v=>{
+        .forEach(item => {
 
             factory.innerHTML +=
-            `<option>${v}</option>`;
+                `<option value="${item}">${item}</option>`;
 
         });
 
-    }
-
-    if(warehouse){
-
-        warehouse.innerHTML =
-        '<option value="">All Warehouses</option>';
-
-        [...new Set(containerData.map(r=>r["الى مستودع"]))]
+    // Warehouse
+    [...new Set(containersData.map(row => row["الى مستودع"]))]
 
         .filter(Boolean)
 
         .sort()
 
-        .forEach(v=>{
+        .forEach(item => {
 
             warehouse.innerHTML +=
-            `<option>${v}</option>`;
+                `<option value="${item}">${item}</option>`;
 
         });
 
-    }
-
-    if(status){
-
-        status.innerHTML =
-        '<option value="">All Status</option>';
-
-        [...new Set(containerData.map(r=>r["حالة الحاوية"]))]
+    // Status
+    [...new Set(containersData.map(row => row["حالة الحاوية"]))]
 
         .filter(Boolean)
 
         .sort()
 
-        .forEach(v=>{
+        .forEach(item => {
 
             status.innerHTML +=
-            `<option>${v}</option>`;
+                `<option value="${item}">${item}</option>`;
 
         });
 
-    }
+}
+
+// ======================================================
+// Render Containers Table
+// ======================================================
+
+function renderContainers(data) {
+
+    const tbody =
+        document.getElementById("containerTable");
+
+    tbody.innerHTML = "";
+
+    data.forEach(row => {
+
+        tbody.innerHTML += `
+
+<tr onclick="showContainerDetails('${row["CONTAINER No"] || ""}')">
+
+    <td>${row["ENTRY"] || ""}</td>
+
+    <td>${row["Factory"] || ""}</td>
+
+    <td>${row["ETA"] || ""}</td>
+
+    <td>${row["POD"] || ""}</td>
+
+    <td>${row["S/N"] || ""}</td>
+
+    <td>${row["CONTAINER No"] || ""}</td>
+
+    <td>${row["MODEL"] || ""}</td>
+
+    <td>${row["QTY"] || ""}</td>
+
+    <td>${row["الى مستودع"] || ""}</td>
+
+    <td>${row["حالة الحاوية"] || ""}</td>
+
+</tr>
+
+`;
+
+    });
+
+}// ======================================================
+// Filter Containers
+// ======================================================
+
+function filterContainers() {
+
+    const keyword =
+        document
+        .getElementById("containerSearch")
+        .value
+        .toLowerCase();
+
+    const factory =
+        document
+        .getElementById("containerFactory")
+        .value;
+
+    const warehouse =
+        document
+        .getElementById("containerWarehouse")
+        .value;
+
+    const status =
+        document
+        .getElementById("containerStatus")
+        .value;
+
+    filteredContainers = containersData.filter(row => {
+
+        const text =
+            JSON.stringify(row).toLowerCase();
+
+        return (
+
+            text.includes(keyword)
+
+            &&
+
+            (!factory ||
+                row["Factory"] === factory)
+
+            &&
+
+            (!warehouse ||
+                row["الى مستودع"] === warehouse)
+
+            &&
+
+            (!status ||
+                row["حالة الحاوية"] === status)
+
+        );
+
+    });
+
+    renderContainers(filteredContainers);
+
+}
+
+// ======================================================
+// Reset Containers
+// ======================================================
+
+function resetContainers() {
+
+    document.getElementById("containerSearch").value = "";
+
+    document.getElementById("containerFactory").value = "";
+
+    document.getElementById("containerWarehouse").value = "";
+
+    document.getElementById("containerStatus").value = "";
+
+    filteredContainers = [...containersData];
+
+    renderContainers(filteredContainers);
+
+}
+
+// ======================================================
+// Container Details
+// ======================================================
+
+function showContainerDetails(containerNo) {
+
+    const container = containersData.find(row =>
+        row["CONTAINER No"] == containerNo
+    );
+
+    if (!container) return;
+
+    document.getElementById("detailsTitle").textContent =
+        container["CONTAINER No"];
+
+    let html = "";
+
+    Object.keys(container).forEach(key => {
+
+        html += `
+
+<div class="detail-item">
+
+<label>${key}</label>
+
+<span>${container[key] ?? ""}</span>
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById("detailsBody").innerHTML =
+        html;
+
+    document
+        .getElementById("detailsPanel")
+        .classList
+        .add("open");
 
 }
