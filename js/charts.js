@@ -1,171 +1,83 @@
 // ======================================================
-// CHARTS.JS
-// Logistics Control Tower V2
+// Charts
 // ======================================================
 
-let factoryChart = null;
-let etaChart = null;
+let analyticsFactoryChart;
+let analyticsShippingChart;
+let analyticsETAChart;
+let analyticsWarehouseChart;
 
 // ======================================================
-// REFRESH ALL CHARTS
+// Initialize Charts
 // ======================================================
 
-function refreshCharts(data){
+function initializeCharts() {
 
-    drawFactoryChart(data);
+    renderFactoryChart();
 
-    drawETAChart(data);
+    renderShippingChart();
+
+    renderETAChart();
+
+    renderWarehouseChart();
 
 }
 
 // ======================================================
-// FACTORY CHART
+// HQ by Factory
 // ======================================================
 
-function drawFactoryChart(data){
+function renderFactoryChart() {
 
-    const result = {};
+    const canvas =
+        document.getElementById("analyticsFactoryChart");
 
-    data.forEach(row=>{
+    if (!canvas) return;
+
+    if (analyticsFactoryChart)
+        analyticsFactoryChart.destroy();
+
+    const summary = {};
+
+    shippingData.forEach(row => {
 
         const factory = row["FACTORY"] || "Unknown";
 
-        result[factory] =
-            (result[factory] || 0)
-            +
-            Number(row["HQ"] || 0);
+        summary[factory] = (summary[factory] || 0) + 1;
 
     });
 
-    const sorted =
-        Object.entries(result)
-        .sort((a,b)=>b[1]-a[1]);
+    analyticsFactoryChart = new Chart(canvas, {
 
-    const labels =
-        sorted.map(x=>x[0]);
+        type: "bar",
 
-    const values =
-        sorted.map(x=>x[1]);
+        data: {
 
-    if(factoryChart){
+            labels: Object.keys(summary),
 
-        factoryChart.destroy();
+            datasets: [{
 
-    }
+                label: "HQ",
 
-    const canvas =
-        document.getElementById("factoryChart");
+                data: Object.values(summary),
 
-    if(!canvas) return;
-
-    factoryChart = new Chart(canvas,{
-
-        type:"bar",
-
-        plugins:[ChartDataLabels],
-
-        data:{
-
-            labels:labels,
-
-            datasets:[{
-
-                label:"HQ",
-
-                data:values,
-
-                backgroundColor:"#123456",
-
-                hoverBackgroundColor:"#1f5f99",
-
-                borderRadius:8,
-
-                borderSkipped:false
+                borderWidth: 1
 
             }]
 
         },
 
-        options:{
+        options: {
 
-            responsive:true,
+            responsive: true,
 
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
 
-            indexAxis:"y",
+            plugins: {
 
-            plugins:{
+                legend: {
 
-                legend:{
-                    display:false
-                },
-
-                datalabels:{
-
-                    color:"#fff",
-
-                    anchor:"center",
-
-                    align:"center",
-
-                    font:{
-
-                        size:11,
-
-                        weight:"bold"
-
-                    },
-
-                    formatter:value=>
-                        Number(value).toLocaleString()
-
-                }
-
-            },
-
-            scales:{
-
-                x:{
-
-                    beginAtZero:true,
-
-                    ticks:{
-
-                        color:"#555",
-
-                        precision:0
-
-                    },
-
-                    grid:{
-
-                        color:"#edf2f7"
-
-                    }
-
-                },
-
-                y:{
-
-                    ticks:{
-
-                        color:"#333",
-
-                        font:{
-
-                            size:12,
-
-                            weight:"600"
-
-                        }
-
-                    },
-
-                    grid:{
-
-                        display:false
-
-                    }
+                    display: false
 
                 }
 
@@ -178,152 +90,176 @@ function drawFactoryChart(data){
 }
 
 // ======================================================
-// ETA CHART
+// HQ by Shipping Line
 // ======================================================
 
-function drawETAChart(data){
+function renderShippingChart() {
 
-    const result = {};
+    const canvas =
+        document.getElementById("analyticsShippingChart");
 
-    data.forEach(row=>{
+    if (!canvas) return;
 
-        if(!row["ETA"]) return;
+    if (analyticsShippingChart)
+        analyticsShippingChart.destroy();
 
-        const date = new Date(row["ETA"]);
+    const summary = {};
 
-        if(isNaN(date)) return;
+    shippingData.forEach(row => {
 
-        const month =
-            date.toLocaleString(
-                "en-US",
-                {
-                    month:"short",
-                    year:"numeric"
-                }
-            );
+        const line =
+            row["Shipping Line"] || "Unknown";
 
-        result[month] =
-            (result[month] || 0)
-            +
-            Number(row["HQ"] || 0);
+        summary[line] =
+            (summary[line] || 0) + 1;
 
     });
 
-    const labels =
-        Object.keys(result);
+    analyticsShippingChart = new Chart(canvas, {
 
-    const values =
-        Object.values(result);
+        type: "doughnut",
 
-    if(etaChart){
+        data: {
 
-        etaChart.destroy();
+            labels: Object.keys(summary),
 
-    }
+            datasets: [{
 
-    const canvas =
-        document.getElementById("etaChart");
-
-    if(!canvas) return;
-
-    etaChart = new Chart(canvas,{
-
-        type:"bar",
-
-        plugins:[ChartDataLabels],
-
-        data:{
-
-            labels:labels,
-
-            datasets:[{
-
-                label:"HQ",
-
-                data:values,
-
-                backgroundColor:"#123456",
-
-                hoverBackgroundColor:"#1f5f99",
-
-                borderRadius:8,
-
-                borderSkipped:false
+                data: Object.values(summary)
 
             }]
 
         },
 
-        options:{
+        options: {
 
-            responsive:true,
+            responsive: true,
 
-            maintainAspectRatio:false,
+            maintainAspectRatio: false
 
-            plugins:{
+        }
 
-                legend:{
-                    display:false
-                },
+    });
 
-                datalabels:{
+}
 
-                    color:"#fff",
+// ======================================================
+// ETA by Month
+// ======================================================
 
-                    anchor:"center",
+function renderETAChart() {
 
-                    align:"center",
+    const canvas =
+        document.getElementById("analyticsETAChart");
 
-                    font:{
+    if (!canvas) return;
 
-                        size:11,
+    if (analyticsETAChart)
+        analyticsETAChart.destroy();
 
-                        weight:"bold"
+    const months = [
 
-                    },
+        "Jan", "Feb", "Mar", "Apr",
+        "May", "Jun", "Jul", "Aug",
+        "Sep", "Oct", "Nov", "Dec"
 
-                    formatter:value=>
-                        Number(value).toLocaleString()
+    ];
 
-                }
+    const summary = new Array(12).fill(0);
 
-            },
+    shippingData.forEach(row => {
 
-            scales:{
+        const eta = new Date(row["ETA"]);
 
-                x:{
+        if (!isNaN(eta)) {
 
-                    ticks:{
-                        color:"#555"
-                    },
+            summary[eta.getMonth()]++;
 
-                    grid:{
-                        display:false
-                    }
+        }
 
-                },
+    });
 
-                y:{
+    analyticsETAChart = new Chart(canvas, {
 
-                    beginAtZero:true,
+        type: "line",
 
-                    ticks:{
+        data: {
 
-                        color:"#555",
+            labels: months,
 
-                        precision:0
+            datasets: [{
 
-                    },
+                label: "Shipments",
 
-                    grid:{
+                data: summary,
 
-                        color:"#edf2f7"
+                tension: 0.3,
 
-                    }
+                fill: false
 
-                }
+            }]
 
-            }
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    });
+
+}
+
+// ======================================================
+// Warehouse Distribution
+// ======================================================
+
+function renderWarehouseChart() {
+
+    const canvas =
+        document.getElementById("analyticsWarehouseChart");
+
+    if (!canvas) return;
+
+    if (analyticsWarehouseChart)
+        analyticsWarehouseChart.destroy();
+
+    const summary = {};
+
+    containersData.forEach(row => {
+
+        const warehouse =
+            row["الى مستودع"] || "Unknown";
+
+        summary[warehouse] =
+            (summary[warehouse] || 0) + 1;
+
+    });
+
+    analyticsWarehouseChart = new Chart(canvas, {
+
+        type: "pie",
+
+        data: {
+
+            labels: Object.keys(summary),
+
+            datasets: [{
+
+                data: Object.values(summary)
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
 
         }
 
