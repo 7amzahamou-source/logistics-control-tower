@@ -3,414 +3,679 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Logistics Control Tower</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" href="favicon.ico">
+    <title>Logistics Control Tower</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
 </head>
 
 <body>
 
-<!-- ========================================= -->
+<!-- ===================================================== -->
 <!-- HEADER -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <header class="header">
 
-<div class="logo">
+    <div class="header-left">
 
-<h1>
+        <h1>AL-ASASYAH BASIC ELECTRONICS CO. LTD</h1>
 
-📊 Logistics Control Tower
+        <h2>Logistics Control Tower</h2>
 
-</h1>
+        <p>Real-Time Supply Chain Monitoring</p>
 
-<p>
+        <span>Powered by <strong>Hamza Hamou</strong></span>
 
-Real-Time Shipment Monitoring & Analytics
+    </div>
 
-</p>
+    <div class="header-right">
 
-<span>
+        <button class="menu-btn active"
+                onclick="showPage('dashboardPage', this)">
+            🏠 Dashboard
+        </button>
 
-Designed & Developed by <b>Hamza Hamou</b>
+        <button class="menu-btn"
+                onclick="showPage('shipmentsPage', this)">
+            🚢 Shipments
+        </button>
 
-</span>
+        <button class="menu-btn"
+                onclick="showPage('purchasePage', this)">
+            📦 Purchase Orders
+        </button>
 
-</div>
+        <button class="menu-btn"
+                onclick="showPage('containersPage', this)">
+            🚛 Containers
+        </button>
 
-<nav class="menu">
+        <button class="menu-btn"
+                onclick="showPage('analyticsPage', this)">
+            📈 Analytics
+        </button>
 
-<button class="menu-btn active" onclick="showPage('dashboardPage')">
+        <button class="menu-btn"
+                onclick="showPage('settingsPage', this)">
+            ⚙ Settings
+        </button>
 
-🏠 Dashboard
-
-</button>
-
-<button class="menu-btn" onclick="showPage('shipmentsPage')">
-
-🚢 Shipments
-
-</button>
-
-<button class="menu-btn" onclick="showPage('purchasePage')">
-
-📦 Purchase Orders
-
-</button>
-
-<button class="menu-btn" onclick="showPage('containersPage')">
-
-📦 Containers
-
-</button>
-
-<button class="menu-btn" onclick="showPage('analyticsPage')">
-
-📈 Analytics
-
-</button>
-
-<button class="menu-btn" onclick="showPage('settingsPage')">
-
-⚙ Settings
-
-</button>
-
-</nav>
+    </div>
 
 </header>
 
-<!-- ========================================= -->
+<!-- ===================================================== -->
 <!-- DASHBOARD -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section id="dashboardPage" class="page active-page">
 
-<div class="cards">
+    <!-- ================= KPI ================= -->
 
-<div class="card">
-<h3>🚢 Total Shipments</h3>
-<h1 id="shipmentCount">0</h1>
-</div>
+    <div class="dashboard-grid">
 
-<div class="card">
-<h3>📦 Total HQ</h3>
-<h1 id="hqCount">0</h1>
-</div>
+        <div class="card">
+            <span>🚢</span>
+            <h3>Total Shipments</h3>
+            <h1 id="shipmentCount">0</h1>
+        </div>
 
-<div class="card">
-<h3>📋 Total Qty</h3>
-<h1 id="qtyCount">0</h1>
-</div>
+        <div class="card">
+            <span>📦</span>
+            <h3>Total HQ</h3>
+            <h1 id="hqCount">0</h1>
+        </div>
 
-<div class="card">
-<h3>🏭 Factories</h3>
-<h1 id="factoryCount">0</h1>
-</div>
+        <div class="card">
+            <span>📋</span>
+            <h3>Total Quantity</h3>
+            <h1 id="qtyCount">0</h1>
+        </div>
 
-<div class="card">
-<h3>🏆 Top Factory</h3>
-<h1 id="topFactory">-</h1>
-</div>
+        <div class="card">
+            <span>🏭</span>
+            <h3>Factories</h3>
+            <h1 id="factoryCount">0</h1>
+        </div>
 
-<div class="card">
-<h3>🗓 HQ ETA This Month</h3>
-<h1 id="etaHQ">0</h1>
-</div>
+        <div class="card">
+            <span>🚢</span>
+            <h3>Shipping Lines</h3>
+            <h1 id="shippingLineCount">0</h1>
+        </div>
 
-</div>
+        <div class="card">
+            <span>🚚</span>
+            <h3>Forwarders</h3>
+            <h1 id="forwarderCount">0</h1>
+        </div>
 
-<div class="charts">
+        <div class="card">
+            <span>📅</span>
+            <h3>ETA This Month</h3>
+            <h1 id="etaHQ">0</h1>
+        </div>
 
-<div class="chart-card">
+        <div class="card">
+            <span>📦</span>
+            <h3>Total Containers</h3>
+            <h1 id="dashboardContainerCount">0</h1>
+        </div>
 
-<h3>📦 Total HQ by Factory</h3>
+    </div>
 
-<canvas id="factoryChart"></canvas>
+    <!-- ================= LATEST SHIPMENTS ================= -->
 
-</div>
+    <div class="table-card">
 
-<div class="chart-card">
+        <div class="table-header">
 
-<h3>🗓 Total HQ by ETA Month</h3>
+            <h2>Latest Shipments</h2>
 
-<canvas id="etaChart"></canvas>
+            <input
+                type="text"
+                id="shipmentSearch"
+                placeholder="🔍 Search Shipment..."
+                onkeyup="searchShipment()">
 
-</div>
+        </div>
 
-</div>
+        <div class="table-responsive">
 
-</section><!-- ========================================= -->
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ENTRY</th>
+                        <th>FACTORY</th>
+                        <th>C/I No</th>
+                        <th>POL</th>
+                        <th>POD</th>
+                        <th>ETA</th>
+                        <th>HQ</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="latestShipmentTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section><!-- ===================================================== -->
 <!-- SHIPMENTS PAGE -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section id="shipmentsPage" class="page">
 
-<div class="page-header">
+    <div class="page-header">
 
-<h2>🚢 Shipments</h2>
+        <div>
 
-<p>Shipment Tracking & Management</p>
+            <h2>🚢 Shipments</h2>
 
-</div>
+            <p>Shipment Tracking & Management</p>
 
-<div class="table-card">
+        </div>
 
-<table>
+    </div>
 
-<thead>
+    <!-- ================= FILTERS ================= -->
 
-<tr>
+    <div class="toolbar">
 
-<th>ENTRY</th>
-<th>FACTORY</th>
-<th>FORWARDER</th>
-<th>POL</th>
-<th>POD</th>
-<th>ETA</th>
-<th>HQ</th>
+        <input
+            type="text"
+            id="shipmentSearchPage"
+            placeholder="🔍 Search Shipment..."
+            onkeyup="searchShipment()">
 
-</tr>
+        <select
+            id="factoryFilter"
+            onchange="filterShipment()">
 
-</thead>
+            <option value="">All Factories</option>
 
-<tbody id="shipmentTable">
+        </select>
 
-</tbody>
+        <select
+            id="shippingLineFilter"
+            onchange="filterShipment()">
 
-</table>
+            <option value="">All Shipping Lines</option>
 
-</div>
+        </select>
+
+        <select
+            id="forwarderFilter"
+            onchange="filterShipment()">
+
+            <option value="">All Forwarders</option>
+
+        </select>
+
+        <button onclick="resetShipment()">
+
+            Reset
+
+        </button>
+
+    </div>
+
+    <!-- ================= TABLE ================= -->
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ENTRY</th>
+                        <th>FACTORY</th>
+                        <th>C/I No</th>
+                        <th>POL</th>
+                        <th>POD</th>
+                        <th>ETA</th>
+                        <th>HQ</th>
+                        <th>Shipping Line</th>
+                        <th>Forwarder</th>
+                        <th>Documents</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="shipmentTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ========================================= -->
+<!-- ===================================================== -->
 <!-- PURCHASE ORDERS PAGE -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section id="purchasePage" class="page">
 
-<div class="page-header">
+    <div class="page-header">
 
-<h2>📦 Purchase Orders</h2>
+        <div>
 
-<p>Purchase Orders Monitoring</p>
+            <h2>📦 Purchase Orders</h2>
 
-</div>
+            <p>Purchase Orders Monitoring</p>
 
-<div class="table-card">
+        </div>
 
-<table>
+    </div>
 
-<thead>
+    <!-- ================= FILTERS ================= -->
 
-<tr>
+    <div class="toolbar">
 
-<th>PO</th>
-<th>Supplier</th>
-<th>Models</th>
-<th>Qty</th>
-<th>Shipped</th>
-<th>Remaining</th>
-<th>Status</th>
+        <input
+            type="text"
+            id="purchaseSearch"
+            placeholder="🔍 Search Purchase Order..."
+            onkeyup="searchPurchase()">
 
-</tr>
+        <select
+            id="purchaseStatusFilter"
+            onchange="filterPurchase()">
 
-</thead>
+            <option value="">All Status</option>
 
-<tbody id="purchaseTable">
+        </select>
 
-</tbody>
+        <button onclick="resetPurchase()">
 
-</table>
+            Reset
 
-</div>
+        </button>
 
-</section>
+    </div>
 
-<!-- ========================================= -->
+    <!-- ================= TABLE ================= -->
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Order ID / PI No</th>
+                        <th>Supplier</th>
+                        <th>Models</th>
+                        <th>Total Qty</th>
+                        <th>Shipped</th>
+                        <th>Remaining</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="purchaseTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section><!-- ===================================================== -->
 <!-- CONTAINERS PAGE -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section id="containersPage" class="page">
 
-<div class="page-header">
+    <div class="page-header">
 
-<h2>📦 Containers</h2>
+        <div>
 
-<p>Container Tracking & Warehouse Distribution</p>
+            <h2>🚛 Containers</h2>
 
-</div>
-<div class="filter">
+            <p>Container Tracking & Warehouse Distribution</p>
 
-    <input
-        type="text"
-        id="containerSearch"
-        placeholder="🔍 Search Container..."
-        onkeyup="filterContainers()">
+        </div>
 
-    <select
-        id="containerFactory"
-        onchange="filterContainers()">
+    </div>
 
-        <option value="">All Factories</option>
+    <!-- ================= KPI ================= -->
 
-    </select>
+    <div class="dashboard-grid">
 
-    <select
-        id="containerWarehouse"
-        onchange="filterContainers()">
+        <div class="card">
+            <span>📦</span>
+            <h3>Total Containers</h3>
+            <h1 id="containerCount">0</h1>
+        </div>
 
-        <option value="">All Warehouses</option>
+        <div class="card">
+            <span>🚢</span>
+            <h3>On Sea</h3>
+            <h1 id="containerSea">0</h1>
+        </div>
 
-    </select>
+        <div class="card">
+            <span>🏭</span>
+            <h3>In Warehouse</h3>
+            <h1 id="containerWarehouse">0</h1>
+        </div>
 
-    <select
-        id="containerStatus"
-        onchange="filterContainers()">
+        <div class="card">
+            <span>🚚</span>
+            <h3>Distributed</h3>
+            <h1 id="containerDistributed">0</h1>
+        </div>
 
-        <option value="">All Status</option>
+        <div class="card">
+            <span>⏳</span>
+            <h3>Waiting Distribution</h3>
+            <h1 id="containerWaiting">0</h1>
+        </div>
 
-    </select>
+        <div class="card">
+            <span>📅</span>
+            <h3>ETA This Month</h3>
+            <h1 id="containerETA">0</h1>
+        </div>
 
-    <button onclick="resetContainers()">
+    </div>
 
-        Reset
+    <!-- ================= FILTERS ================= -->
 
-    </button>
+    <div class="toolbar">
 
-</div>
-<div class="cards">
+        <input
+            type="text"
+            id="containerSearch"
+            placeholder="🔍 Search Container..."
+            onkeyup="filterContainers()">
 
-<div class="card">
-<h3>📦 Total Containers</h3>
-<h1 id="containerCount">0</h1>
-</div>
+        <select
+            id="containerFactory"
+            onchange="filterContainers()">
 
-<div class="card">
-<h3>🚢 On Sea</h3>
-<h1 id="containerSea">0</h1>
-</div>
+            <option value="">All Factories</option>
 
-<div class="card">
-<h3>🏭 In Warehouse</h3>
-<h1 id="containerWarehouse">0</h1>
-</div>
+        </select>
 
-<div class="card">
-<h3>🚚 Distributed</h3>
-<h1 id="containerDistributed">0</h1>
-</div>
+        <select
+            id="containerWarehouse"
+            onchange="filterContainers()">
 
-<div class="card">
-<h3>⏳ Waiting</h3>
-<h1 id="containerWaiting">0</h1>
-</div>
+            <option value="">All Warehouses</option>
 
-<div class="card">
-<h3>📅 ETA This Month</h3>
-<h1 id="containerETA">0</h1>
-</div>
+        </select>
 
-</div>
+        <select
+            id="containerStatus"
+            onchange="filterContainers()">
 
-<div class="table-card">
+            <option value="">All Status</option>
 
-<table>
+        </select>
 
-<thead>
+        <button onclick="resetContainers()">
 
-<tr>
+            Reset
 
-<th>#</th>
-<th>ENTRY</th>
-<th>ETA</th>
-<th>POD</th>
-<th>S/N</th>
-<th>CONTAINER</th>
-<th>QTY</th>
-<th>WAREHOUSE</th>
-<th>STATUS</th>
-<th>ACTION</th>
+        </button>
 
-</tr>
+    </div>
 
-</thead>
+    <!-- ================= TABLE ================= -->
 
-<tbody id="containerTable">
+    <div class="table-card">
 
-</tbody>
+        <div class="table-responsive">
 
-</table>
+            <table>
 
-</div>
+                <thead>
+
+                    <tr>
+
+                        <th>ENTRY</th>
+                        <th>Factory</th>
+                        <th>ETA</th>
+                        <th>POD</th>
+                        <th>S/N</th>
+                        <th>Container No</th>
+                        <th>Model</th>
+                        <th>Qty</th>
+                        <th>Warehouse</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="containerTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ========================================= -->
-<!-- ANALYTICS -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
+<!-- ANALYTICS PAGE -->
+<!-- ===================================================== -->
 
 <section id="analyticsPage" class="page">
 
-<div class="page-header">
+    <div class="page-header">
 
-<h2>📈 Analytics</h2>
+        <h2>📈 Analytics</h2>
 
-<p>Coming Soon...</p>
+        <p>Business Intelligence & KPI Analysis</p>
 
-</div>
+    </div>
 
-</section>
+    <div class="charts-grid">
 
-<!-- ========================================= -->
-<!-- SETTINGS -->
-<!-- ========================================= -->
+        <div class="chart-card">
+
+            <h3>HQ by Factory</h3>
+
+            <canvas id="analyticsFactoryChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>HQ by Shipping Line</h3>
+
+            <canvas id="analyticsShippingChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>ETA by Month</h3>
+
+            <canvas id="analyticsETAChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>Warehouse Distribution</h3>
+
+            <canvas id="analyticsWarehouseChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section><!-- ===================================================== -->
+<!-- SETTINGS PAGE -->
+<!-- ===================================================== -->
 
 <section id="settingsPage" class="page">
 
-<div class="page-header">
+    <div class="page-header">
 
-<h2>⚙ Settings</h2>
+        <h2>⚙ Settings</h2>
 
-<p>Coming Soon...</p>
+        <p>System Information</p>
 
-</div>
+    </div>
+
+    <div class="table-card">
+
+        <table>
+
+            <tbody>
+
+                <tr>
+                    <td>Company</td>
+                    <td>AL-ASASYAH BASIC ELECTRONICS CO. LTD</td>
+                </tr>
+
+                <tr>
+                    <td>System</td>
+                    <td>Logistics Control Tower</td>
+                </tr>
+
+                <tr>
+                    <td>Version</td>
+                    <td>1.0.0</td>
+                </tr>
+
+                <tr>
+                    <td>Developer</td>
+                    <td>Hamza Hamou</td>
+                </tr>
+
+                <tr>
+                    <td>Data Source</td>
+                    <td>Google Apps Script API</td>
+                </tr>
+
+                <tr>
+                    <td>Database</td>
+                    <td>Google Sheets</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </section>
 
-<!-- ========================================= -->
-<!-- JAVASCRIPT LIBRARIES -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
+<!-- DETAILS PANEL -->
+<!-- ===================================================== -->
+
+<div id="detailsPanel" class="details-panel">
+
+    <div class="details-header">
+
+        <h2 id="detailsTitle">
+
+            Details
+
+        </h2>
+
+        <button onclick="closeDetails()">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div id="detailsBody">
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- LOADING SCREEN -->
+<!-- ===================================================== -->
+
+<div id="loading" class="loading">
+
+    <div class="spinner"></div>
+
+    <p>
+
+        Loading Logistics Data...
+
+    </p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- LIBRARIES -->
+<!-- ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
-<!-- ========================================= -->
-<!-- PAGE SCRIPTS -->
-<!-- ========================================= -->
-
-<script src="js/charts.js"></script>
+<!-- ===================================================== -->
+<!-- PROJECT FILES -->
+<!-- ===================================================== -->
 
 <script src="js/containers.js"></script>
 
-<!-- ========================================= -->
-<!-- MAIN SCRIPT -->
-<!-- ========================================= -->
+<script src="js/charts.js"></script>
 
 <script src="js/script.js"></script>
 
 </body>
+
 </html>
